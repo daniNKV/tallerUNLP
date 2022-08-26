@@ -134,7 +134,7 @@ Begin
 		posSuperior:= BuscarPosicionDesde (v, dimL, posInferior, valorSuperior);
          
 		{Escribir el código correspondiente para hacer el corrimiento y disminuir la dimensión lógica}
-	
+		// LISTO
     	salto := posSuperior - posInferior + 1;
 
 		for i := posSuperior + 1 to dimL do
@@ -147,30 +147,34 @@ end;
 
 procedure GenerarLista (v: vector; dimL: rango3; var L: lista);
 
-  procedure AgregarAdelante (var L: lista; elem: venta);
-  var
-    nuevoNodo: lista;
-  begin
-    { Completar } 
-	// LISTO
-    new(nuevoNodo);
-    nuevoNodo^.dato := elem;
-    nuevoNodo^.sig := L;
-    L := nuevoNodo;
+	procedure AgregarAdelante (var L: lista; elem: venta);
+	var
+		nuevoNodo: lista;
+	begin
+		{ Completar } 
+		// LISTO
+		new(nuevoNodo);
+		nuevoNodo^.dato := elem;
+		nuevoNodo^.sig := L;
+		L := nuevoNodo;
 
-  
-  end;
-  
-  function Cumple (num: rango1): boolean;
-  begin
-    { Completar }
-  end;
+	
+	end;
+	
+	function Cumple (num: rango1): boolean;
+	var	
+		d: 0..9;
+	begin
+		{ Completar }
+		d := num MOD 10;
+		Cumple := (d = 0);
+	end;
   
 var i: rango3; 
 begin
-  L:= nil;
-  for i:= dimL downto 1 do 
-    if Cumple (v[i].codigoP) then AgregarAdelante (L, v[i]);
+  	L:= nil;
+  	for i:= dimL downto 1 do 
+    	if Cumple (v[i].codigoP) then AgregarAdelante (L, v[i]);
 end; 
 
 procedure ImprimirLista (L: lista);

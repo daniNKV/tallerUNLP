@@ -112,7 +112,8 @@ procedure Eliminar (var v: vector; var dimL: rango3; valorInferior, valorSuperio
        pos:= pos + 1;
     if (pos > dimL) then 
 		BuscarPosicion:= 0
-	else BuscarPosicion:= pos;
+	else 
+		BuscarPosicion:= pos;
   end;
   
   function BuscarPosicionDesde (v: vector; dimL, pos : integer; elemABuscar: rango1): rango3;
@@ -128,13 +129,19 @@ procedure Eliminar (var v: vector; var dimL: rango3; valorInferior, valorSuperio
 var 
 	posInferior, posSuperior, salto, i: rango3; 
 Begin
-  posInferior:= BuscarPosicion (v, dimL, valorInferior);
-  if (posInferior <> 0)then begin
-	posSuperior:= BuscarPosicionDesde (v, dimL, posInferior, valorSuperior);
+  	posInferior:= BuscarPosicion (v, dimL, valorInferior);
+	if (posInferior <> 0)then begin
+		posSuperior:= BuscarPosicionDesde (v, dimL, posInferior, valorSuperior);
          
-	{Escribir el código correspondiente para hacer el corrimiento y disminuir la dimensión lógica}
+		{Escribir el código correspondiente para hacer el corrimiento y disminuir la dimensión lógica}
 	
-         
+    	salto := posSuperior - posInferior + 1;
+
+		for i := posSuperior + 1 to dimL do
+			v[i - salto] := v[i]
+
+
+		dimL := dimL - salto;
 	end;
 end;
 

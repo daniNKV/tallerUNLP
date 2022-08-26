@@ -169,7 +169,10 @@ end;
 procedure ImprimirLista (L: lista);
 begin
  { Completar }
-
+ // LISTO
+	while(L^.sig <> nil) do begin
+		write('Codigo de Producto: ', L^.dato.codigoP);
+	end;
 end;
 
 var v: vector;

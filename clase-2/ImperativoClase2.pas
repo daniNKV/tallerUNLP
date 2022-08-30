@@ -21,7 +21,7 @@ type
 		sig: lista;
 	end;
 
-
+// INCISO A
 procedure CargarVector (var v: vector; var dimL: integer);
 
 	procedure CargarVectorRecursivo (var v: vector; var dimL: integer);
@@ -40,7 +40,8 @@ begin
 	dimL:= 0;
 	CargarVectorRecursivo (v, dimL);
 end;
- 
+
+// INCISO B 
 procedure ImprimirVector (v: vector; dimL: integer);
 var
 	 i: integer;
@@ -59,17 +60,31 @@ begin
 	writeln;
 End;         
 
+// INCISO C
+procedure ImprimirVectorRecursivo(var v: vector; dimL: integer);
+begin
+	if dimL <> 0 then begin
+		writeln('----');
+		writeln(v[dimL])
+		writeln('----')
+		ImprimirVectorRecursivo(v, dimL - 1);
+	end;
+end;
+
+// INCISO D
 function ContarCaracteres(): integer;
-var caracter: char;
+var
+	caracter: char;
 Begin
 	write ('Ingrese un caracter: ');
 	readln(caracter);  
-	if (caracter <> '.' )  
-	then ContarCaracteres:= ContarCaracteres() + 1  
-	else ContarCaracteres:=0  
+	if (caracter <> '.' ) then 
+		ContarCaracteres:= ContarCaracteres() + 1
+	else 
+		ContarCaracteres:=0  
 End;
 	
-
+// INCISO E
 procedure CargarLista (var l: lista);
 var 
 	caracter: char;
@@ -88,6 +103,7 @@ Begin
 		l:= nil
 End;
 
+// INCISO F
 procedure ImprimirListaMismoOrden (l: lista);
 begin
 	if (l<> nil) then begin
@@ -96,7 +112,15 @@ begin
 	end;
 end;
 
-var cont, dimL: integer; l: lista; v: vector;
+procedure ImprimirListaOrdenInverso(l : lista);
+begin
+	
+end;
+
+var 
+	cont, dimL: integer; 
+	l: lista;
+	v: vector;
 Begin 
 	CargarVector (v, dimL);
 	writeln;
@@ -129,4 +153,4 @@ Begin
 		writeln;
 		ImprimirListaOrdenInverso (l); }
 	end;
-	end.
+end.

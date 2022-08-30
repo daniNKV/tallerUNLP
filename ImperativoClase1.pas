@@ -166,6 +166,7 @@ procedure GenerarLista (v: vector; dimL: rango3; var L: lista);
 		d: 0..9;
 	begin
 		{ Completar }
+		// LISTO
 		d := num MOD 10;
 		Cumple := (d = 0);
 	end;
@@ -192,38 +193,41 @@ var v: vector;
     L: lista;
     
 Begin
-  AlmacenarInformacion (v, dimL);
-  writeln;
-  if (dimL = 0) then writeln ('--- Vector sin elementos ---')
-    else begin
-      writeln ('--- Vector ingresado --->');
-      writeln;
-      ImprimirVector (v, dimL);
-      writeln;
-      writeln ('--- Vector ordenado --->');
-      writeln;
-      Ordenar (v, dimL);
-      ImprimirVector (v, dimL);
-      {write ('Ingrese valor inferior: ');
-      readln (valorInferior);
-      write ('Ingrese valor superior: ');
-      readln (valorSuperior);
-      Eliminar (v, dimL, valorInferior, valorSuperior);
-      if (dimL = 0) then writeln ('--- Vector sin elementos, luego de la eliminacion ---')
-                    else begin
-                          writeln;
-                          writeln ('--- Vector luego de la eliminacion --->');
-                          writeln;
-                          ImprimirVector (v, dimL);
-                          GenerarLista (v, dimL, L);
-                          if (L = nil) then writeln ('--- Lista sin elementos ---')
-                                        else begin
-                                              writeln;
-                                              writeln ('--- Lista obtenida --->');
-                                              writeln;
-                                              ImprimirLista (L);
-                                            end;
-                        end;}
+  	AlmacenarInformacion (v, dimL);
+  	writeln;
+  	if (dimL = 0) then 
+  		writeln ('--- Vector sin elementos ---')
+	else begin
+		writeln ('--- Vector ingresado --->');
+		writeln;
+		ImprimirVector (v, dimL);
+		writeln;
+		writeln ('--- Vector ordenado --->');
+		writeln;
+		Ordenar (v, dimL);
+		ImprimirVector (v, dimL);
+		{write ('Ingrese valor inferior: ');
+		readln (valorInferior);
+		write ('Ingrese valor superior: ');
+		readln (valorSuperior);
+		Eliminar (v, dimL, valorInferior, valorSuperior);
+		if (dimL = 0) then 
+			writeln ('--- Vector sin elementos, luego de la eliminacion ---')
+		else begin
+			writeln;
+			writeln ('--- Vector luego de la eliminacion --->');
+			writeln;
+			ImprimirVector (v, dimL);
+			GenerarLista (v, dimL, L);
+			if (L = nil) then 
+				writeln ('--- Lista sin elementos ---')
+			else begin
+				writeln;
+				writeln ('--- Lista obtenida --->');
+				writeln;
+				ImprimirLista (L);
+			end;
+		end;}
     end;
                        
 end.

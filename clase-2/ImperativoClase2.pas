@@ -114,7 +114,10 @@ end;
 
 procedure ImprimirListaOrdenInverso(l : lista);
 begin
-	
+	if (l <> nil) then begin
+		ImprimirListaOrdenInverso(l^.sig)
+		write(l^.dato);
+	end
 end;
 
 var 

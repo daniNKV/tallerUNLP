@@ -34,7 +34,7 @@ procedure generarLista(var pi: lista);
     begin
         new(nuevo);
         nuevo^.sig := pi;
-        nuevo^.dato := n;
+        nuevo^.dato := 37;
         pi := nuevo;
     end;
 
@@ -68,6 +68,20 @@ begin
     end;
 end;
 
+function existeValor(pi: lista; n: rango): boolean;
+begin  
+    if (pi^.sig <> nil) then begin
+        if (pi^.dato = n) then
+            existeValor := true;
+
+        existeValor(pi^.sig, n);
+    end;
+
+    if (pi^.sig = nil) and (pi^.dato <> n) then
+        existeValor := false;
+
+end;
+
 
 var
     pLista: lista;
@@ -82,7 +96,8 @@ begin
     generarLista(pLista);
     buscarMaximo(pLista, max);
     buscarMinimo(pLista, min);
-    writeln(min)
 
+    write(existeValor(pLista, 37));
+    
 
 end.

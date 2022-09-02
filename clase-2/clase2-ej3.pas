@@ -29,15 +29,25 @@ begin
     end;
 end;
 
+procedure buscarMaximo(v: vector; dimL: dimVector; var max: rango);
+begin
+    if (dimL > 0) then begin
+        if (v[dimL] > max) then
+            max := v[dimL];
+        
+        buscarMaximo(v, dimL - 1, max);
+    end;
+end;
+
 var
     v: vector;
-    i: integer;
     dimL: dimVector;
+    max: rango;
 
 begin
     Randomize;
     dimL := 0;
-
+    max := 0;
     generarVector(v, dimL);
-
+    buscarMaximo(v, dimL, max);
 end.

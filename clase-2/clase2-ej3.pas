@@ -10,9 +10,10 @@
 program ej3;
 const
     nMax = 100;
+    nMin = 0;
 type
 
-    rango = 0..nMax;
+    rango = nMin..nMax;
 
     lista = ^nodo;
     nodo = record
@@ -57,16 +58,31 @@ begin
     end;
 end;
 
+procedure buscarMinimo(pi: lista; var min: rango);
+begin
+    if (pi^.sig <> nil) then begin
+        if (pi^.dato < min) then
+            min := pi^.dato;
+        
+        buscarMaximo(pi^.sig, min);
+    end;
+end;
+
+
 var
     pLista: lista;
     max: rango;
+    min: rango;
 begin
     Randomize;
-    max := 0;
+    max := nMin;
+    min := nMax;
    
     pLista := nil;
     generarLista(pLista);
     buscarMaximo(pLista, max);
+    buscarMinimo(pLista, min);
+    writeln(min)
 
 
 end.

@@ -37,24 +37,36 @@ procedure generarLista(var pi: lista);
         pi := nuevo;
     end;
 
-var n: rango;
+var 
+    n: rango;
 begin
     n := generarNumeroAleatorio();
-    writeln(n);
     if(n <> 0) then begin
         agregar(pi, n);
         generarLista(pi^.sig);
     end;
 end;
 
+procedure buscarMaximo(pi: lista; var max: rango);
+begin
+    if (pi^.sig <> nil) then begin
+        if (pi^.dato > max) then
+            max := pi^.dato;
+        
+        buscarMaximo(pi^.sig, max);
+    end;
+end;
+
 var
     pLista: lista;
+    max: rango;
 begin
     Randomize;
-
+    max := 0;
    
     pLista := nil;
     generarLista(pLista);
+    buscarMaximo(pLista, max);
 
 
 end.

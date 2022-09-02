@@ -64,7 +64,7 @@ begin
         if (pi^.dato < min) then
             min := pi^.dato;
         
-        buscarMaximo(pi^.sig, min);
+        buscarMinimo(pi^.sig, min);
     end;
 end;
 

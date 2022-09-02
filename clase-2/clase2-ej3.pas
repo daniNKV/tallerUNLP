@@ -34,7 +34,7 @@ procedure generarLista(var pi: lista);
     begin
         new(nuevo);
         nuevo^.sig := pi;
-        nuevo^.dato := 37;
+        nuevo^.dato := n;
         pi := nuevo;
     end;
 
@@ -96,8 +96,8 @@ begin
     generarLista(pLista);
     buscarMaximo(pLista, max);
     buscarMinimo(pLista, min);
-
-    write(existeValor(pLista, 37));
+    
+    write(existeValor(pLista, 97));
     
 
 end.

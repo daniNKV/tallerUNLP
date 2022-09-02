@@ -39,15 +39,29 @@ begin
     end;
 end;
 
+procedure sumarVector(v: vector; dimL: dimVector; var total: integer);
+begin
+    if (dimL > 0) then begin
+        total := total + v[dimL];
+
+        sumarVector(v, dimL - 1, total );
+    end;
+
+end;
 var
     v: vector;
     dimL: dimVector;
     max: rango;
+    total: integer;
 
 begin
     Randomize;
+    total := 0;
     dimL := 0;
     max := 0;
+
     generarVector(v, dimL);
     buscarMaximo(v, dimL, max);
+    sumarVector(v, dimL, total);
+    writeln(total);
 end.

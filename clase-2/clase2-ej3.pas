@@ -1,67 +1,60 @@
-// 4.- Escribir un programa que:
-// a. Implemente un módulo recursivo que genere un vector de 20 números enteros “random”
-// mayores a 0 y menores a 100.
-// b. Implemente un módulo recursivo que devuelva el máximo valor del vector.
-// c. Implementar un módulo recursivo que devuelva la suma de los valores contenidos en el
-// vector.
+// 3.- Escribir un programa que:
+// a. Implemente un módulo recursivo que genere una lista de números enteros “random”
+// mayores a 0 y menores a 100. Finalizar con el número 0.
+// b. Implemente un módulo recursivo que devuelva el mínimo valor de la lista.
+// c. Implemente un módulo recursivo que devuelva el máximo valor de la lista.
+// d. Implemente un módulo recursivo que devuelva verdadero si un valor determinado se
+// encuentra en la lista o falso en caso contrario.
 
 
 program ej3;
 const
-    dimF = 20;
     nMax = 100;
 type
 
-    rango = 0..100;
-    dimVector = 0 .. dimF;
-    vector = array[dimVector] of rango;
+    rango = 0..nMax;
 
-procedure generarVector(var v: vector; var dimL: dimVector);
-    function generarNumero(): rango;
+    lista = ^nodo;
+    nodo = record
+        dato: integer;
+        sig: lista;
+    end;
+
+
+procedure generarLista(var pi: lista);
+    function generarNumeroAleatorio(): rango;
     begin
-        generarNumero := Random(nMax);
+        generarNumeroAleatorio := Random(nMax);
     end;
+
+    procedure agregar(var pi: lista; n: rango);
+    var
+        nuevo: lista;
+    begin
+        new(nuevo);
+        nuevo^.sig := pi;
+        nuevo^.dato := n;
+        pi := nuevo;
+    end;
+
+var n: rango;
 begin
-    if (dimL < dimF) then begin
-        dimL := dimL + 1;
-        v[dimL] := generarNumero();
-        generarVector(v, dimL);
+    n := generarNumeroAleatorio();
+    writeln(n);
+    if(n <> 0) then begin
+        agregar(pi, n);
+        generarLista(pi^.sig);
     end;
 end;
 
-procedure buscarMaximo(v: vector; dimL: dimVector; var max: rango);
-begin
-    if (dimL > 0) then begin
-        if (v[dimL] > max) then
-            max := v[dimL];
-        
-        buscarMaximo(v, dimL - 1, max);
-    end;
-end;
-
-procedure sumarVector(v: vector; dimL: dimVector; var total: integer);
-begin
-    if (dimL > 0) then begin
-        total := total + v[dimL];
-
-        sumarVector(v, dimL - 1, total );
-    end;
-
-end;
 var
-    v: vector;
-    dimL: dimVector;
-    max: rango;
-    total: integer;
-
+    pLista: lista;
 begin
     Randomize;
-    total := 0;
-    dimL := 0;
-    max := 0;
 
-    generarVector(v, dimL);
-    buscarMaximo(v, dimL, max);
-    sumarVector(v, dimL, total);
-    writeln(total);
+   
+    pLista := nil;
+    generarLista(pLista);
+
+
 end.

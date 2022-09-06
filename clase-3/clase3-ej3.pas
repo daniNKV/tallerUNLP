@@ -17,7 +17,7 @@ program ej3;
 const 
     cotaLegajo = 20;
     cotaLegajoSuperior = 25;
-    cotaLegajoInferior 10;
+    cotaLegajoInferior = 10;
 type
     alumno = record
         legajo: integer;
@@ -48,7 +48,7 @@ begin
     readln(a.ingreso);
     write('Ingrese legajo: ');
     readln(a.legajo);
-    if (a.ingreso > 2010 and a.legajo <> -1) then begin
+    if (a.ingreso > 2010) and (a.legajo <> -1) then begin
         write('Ingrese DNI: ');
         readln(a.dni);
     end;
@@ -100,22 +100,58 @@ end;
 procedure imprimirAlumnosLegajoEntre(cotaInferior, cotaSuperior: integer; a: arbolAlumnos);
 begin
     if (a <> nil) then begin
-        if (a^.dato.legajo < cotaSuperior and a^.dato.legajo > cotaInferior) then begin
+        if (a^.dato.legajo < cotaSuperior) and (a^.dato.legajo > cotaInferior) then begin
             writeln('DNI del alumno: ', a^.dato.dni);
             writeln('Año de ingreso del alumno: ', a^.dato.ingreso);
         end;
-        imprimirAlumnosLegajoMenorA(cotaInferior, cotaSuperior, a^.hi);
-        imprimirAlumnosLegajoMenorA(cotaInferior, cotaSuperior, a^.hd);
+        imprimirAlumnosLegajoEntre(cotaInferior, cotaSuperior, a^.hi);
+        imprimirAlumnosLegajoEntre(cotaInferior, cotaSuperior, a^.hd);
+    end;
+end;
+
+procedure buscarMayorDNI(a: arbolAlumnos; var maxDNI: integer);
+begin
+    if (a <> nil) then begin
+        if (a^.dato.dni > maxDNI) then
+            maxDNI := a^.dato.dni;
+        
+        buscarMayorDNI(a^.hd, maxDNI);
     end;
 end;
 
 
+
+procedure contarDniImpares(a: arbolAlumnos; cantidad: integer);
+    function esImpar(n: integer): boolean;
+    var 
+        d: integer;
+    begin
+        d := n MOD 2;
+        
+        esImpar := (d = 0);
+    end;
+begin
+    if (a <> nil) then begin
+        if(esImpar(a^.dato.dni)) then
+            cantidad := cantidad + 1;
+        
+        contarDniImpares(a^.hi, cantidad);
+        contarDniImpares(a^.hd, cantidad);
+    end;
+end;
+
 var
     arbolAlumnosTaller: arbolAlumnos;
+    maxDNI: integer;
+    cantidadImpares: integer;
 
 begin
     generarArbolAlumnos(arbolAlumnosTaller);
     imprimirAlumnosLegajoMenorA(cotaLegajo, arbolAlumnosTaller);
-    if (cotaSuperior > cotaInferior) then
+    if (cotaLegajoSuperior > cotaLegajoInferior) then
         imprimirAlumnosLegajoEntre(cotaLegajoInferior, cotaLegajoSuperior, arbolAlumnosTaller);
+    buscarMayorDNI(arbolAlumnosTaller, maxDNI);
+    cantidadImpares := 0;
+    contarDniImpares(arbolAlumnosTaller, cantidadImpares);
+
 end.

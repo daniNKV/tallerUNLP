@@ -27,6 +27,8 @@
 
 
 program ej1;
+const socioBuscado = 20;
+
 type
     cadenaT = string[20];
     edadT = 1 .. 120;
@@ -107,18 +109,70 @@ begin
             s := r^.dato;
         end;
 
-        buscarMenorCodigo(r, s, min);
+        buscarMenorCodigo(r^.hi, s, min);
     end;    
+end;
+
+procedure buscarMayorEdad(r: arbol; var s: socio; var max: integer);
+begin
+    if (r <> nil) then begin
+        if(r^.dato.edad > max) then begin
+            s := r^.dato;
+            max := r^.dato.edad;
+        end;
+        buscarMayorEdad(r^.hi, s, max);
+        buscarMayorEdad(r^.hd, s, max);
+    end;
+end;
+
+procedure aumentarEdadSocios(r: arbol);
+begin
+    if(r <> nil) then begin
+        r^.dato.edad := r^.dato.edad + 1;
+
+        aumentarEdadSocios(r^.hi);
+        aumentarEdadSocios(r^.hd);
+    end;
+end;
+
+function buscarNroSocio(r: arbol; n: integer): boolean;
+begin
+    if (r <> nil) then begin
+        if (r^.dato.nro = n) then
+            buscarNroSocio := true
+        else 
+            buscarNroSocio(r^.hi, n);
+            buscarNroSocio(r^.hd, n);
+    end;
+
 end;
 
 var
     raiz: arbol;
-    max, min: integer;
+    maxCodigo, minCodigo: integer;
     minSocio: socio;
+    socioMayorEdad: socio;
+    maxEdad: integer;
+    existeSocio: boolean;
+    
 begin
     generarArbolSocios(raiz);
-    max := buscarMayorCodigo(raiz, max);
-    writeln('El mayor numero de socio es: ', max);
-    buscarMenorCodigo(raiz, minSocio, min);
+    
+    maxCodigo := buscarMayorCodigo(raiz, maxCodigo);
+    writeln('El mayor numero de socio es: ', maxCodigo);
+    
+    minCodigo := -9999;
+    buscarMenorCodigo(raiz, minSocio, minCodigo);
+    writeln('El socio con menor número de socio es: ', minSocio.nombre, ' con nro de socio: ', minSocio.nro);
+
+    maxEdad := -1;
+    buscarMayorEdad(raiz, socioMayorEdad, maxEdad);
+    writeln('El socio de mayor edad es: ', socioMayorEdad.nombre, 'con: ', socioMayorEdad.edad);
+
+    aumentarEdadSocios(raiz);
+
+    existeSocio := buscarNroSocio(raiz, socioBuscado);
+
+    
 
 end.

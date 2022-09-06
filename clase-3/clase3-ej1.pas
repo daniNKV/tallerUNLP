@@ -27,9 +27,6 @@
 
 
 program ej1;
-
-const 
-
 type
     cadenaT = string[20];
     edadT = 1 .. 120;
@@ -67,13 +64,13 @@ begin
         nuevoNodo^.hi := nil;
         nuevoNodo^.hd := nil;
         nuevoNodo^.dato := s;
-    end;
+    end
     else
-        if(s.dato.nro > r.dato.nro) then
-            insertarNodo(r^.hd, socio)
+        if(s.nro > r^.dato.nro) then
+            insertarNodo(r^.hd, s)
         else
-            if(s.dato.nro < r.dato.nro) then
-                insertarNodo(r^.hi, socio)
+            if(s.nro < r^.dato.nro) then
+                insertarNodo(r^.hi, s)
     
 
 end;
@@ -82,7 +79,7 @@ procedure generarArbolSocios(var r: arbol);
 var
     nuevoSocio: socio;
 begin
-    raiz := nil;
+    r := nil;
     leerSocio(nuevoSocio);
     while(nuevoSocio.nro <> 0) do begin
         insertarNodo(r, nuevoSocio);
@@ -91,10 +88,37 @@ begin
 
 end;
 
+function buscarMayorCodigo(r: arbol; var max: integer): integer;
+begin
+    if (r = nil) then
+        buscarMayorCodigo := max
+    else 
+        if(r^.dato.nro > max) then
+            max := r^.dato.nro;
+        
+        buscarMayorCodigo(r^.hd, max);
+end;
+
+procedure buscarMenorCodigo(r: arbol; var s: socio; var min: integer);
+begin
+    if (r <> nil) then begin
+        if(r^.dato.nro < min) then begin
+            min := r^.dato.nro;
+            s := r^.dato;
+        end;
+
+        buscarMenorCodigo(r, s, min);
+    end;    
+end;
 
 var
     raiz: arbol;
+    max, min: integer;
+    minSocio: socio;
 begin
     generarArbolSocios(raiz);
+    max := buscarMayorCodigo(raiz, max);
+    writeln('El mayor numero de socio es: ', max);
+    buscarMenorCodigo(raiz, minSocio, min);
 
 end.

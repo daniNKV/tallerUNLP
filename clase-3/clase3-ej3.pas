@@ -14,8 +14,10 @@
 
 program ej3;
 
-const cotaLegajo = 20;
-
+const 
+    cotaLegajo = 20;
+    cotaLegajoSuperior = 25;
+    cotaLegajoInferior 10;
 type
     alumno = record
         legajo: integer;
@@ -95,6 +97,18 @@ begin
     end;
 end;
 
+procedure imprimirAlumnosLegajoEntre(cotaInferior, cotaSuperior: integer; a: arbolAlumnos);
+begin
+    if (a <> nil) then begin
+        if (a^.dato.legajo < cotaSuperior and a^.dato.legajo > cotaInferior) then begin
+            writeln('DNI del alumno: ', a^.dato.dni);
+            writeln('Año de ingreso del alumno: ', a^.dato.ingreso);
+        end;
+        imprimirAlumnosLegajoMenorA(cotaInferior, cotaSuperior, a^.hi);
+        imprimirAlumnosLegajoMenorA(cotaInferior, cotaSuperior, a^.hd);
+    end;
+end;
+
 
 var
     arbolAlumnosTaller: arbolAlumnos;
@@ -102,4 +116,6 @@ var
 begin
     generarArbolAlumnos(arbolAlumnosTaller);
     imprimirAlumnosLegajoMenorA(cotaLegajo, arbolAlumnosTaller);
+    if (cotaSuperior > cotaInferior) then
+        imprimirAlumnosLegajoEntre(cotaLegajoInferior, cotaLegajoSuperior, arbolAlumnosTaller);
 end.

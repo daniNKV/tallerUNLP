@@ -68,11 +68,10 @@ begin
         nuevoNodo^.dato := s;
     end
     else
-        if(s.nro > r^.dato.nro) then
-            insertarNodo(r^.hd, s)
+        if(s.nro < r^.dato.nro) then
+            insertarNodo(r^.hi, s)
         else
-            if(s.nro < r^.dato.nro) then
-                insertarNodo(r^.hi, s)
+            insertarNodo(r^.hd, s)
     
 
 end;
@@ -90,15 +89,26 @@ begin
 
 end;
 
-function buscarMayorCodigo(r: arbol; var max: integer): integer;
+// function buscarMayorCodigo(r: arbol; var max: integer): integer;
+// begin
+//     if (r = nil) then
+//         buscarMayorCodigo := max
+//     else 
+//         if(r^.dato.nro > max) then
+//             max := r^.dato.nro;
+        
+//         buscarMayorCodigo(r^.hd, max);
+// end;
+
+function buscarMayorCodigo(r: arbol): integer;
 begin
     if (r = nil) then
-        buscarMayorCodigo := max
+        buscarMayorCodigo := -1 // No tiene nodos
     else 
-        if(r^.dato.nro > max) then
-            max := r^.dato.nro;
-        
-        buscarMayorCodigo(r^.hd, max);
+        if(r^.hd = nil) then
+            buscarMayorCodigo(r) := r^.dato.nro; // Si no tiene hijjo derecho es el mayor
+        else
+            buscarMayorCodigo(r^.hd); //Sigo iterando
 end;
 
 procedure buscarMenorCodigo(r: arbol; var s: socio; var min: integer);

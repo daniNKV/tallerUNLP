@@ -111,15 +111,27 @@ begin
             buscarMayorCodigo(r^.hd); //Sigo iterando
 end;
 
-procedure buscarMenorCodigo(r: arbol; var s: socio; var min: integer);
-begin
-    if (r <> nil) then begin
-        if(r^.dato.nro < min) then begin
-            min := r^.dato.nro;
-            s := r^.dato;
-        end;
+// procedure buscarMenorCodigo(r: arbol; var s: socio; var min: integer);
+// begin
+//     if (r <> nil) then begin
+//         if(r^.dato.nro < min) then begin
+//             min := r^.dato.nro;
+//             s := r^.dato;
+//         end;
 
-        buscarMenorCodigo(r^.hi, s, min);
+//         buscarMenorCodigo(r^.hi, s, min);
+//     end;    
+// end;
+
+function buscarMenorCodigo(r: arbol): arbol;
+begin
+    if (r = nil) then
+        buscarMenorCodigo := nil;
+    else 
+        if (r^.hi = nil) then
+            buscarMenorCodigo := r^.dato
+        else
+            buscarMenorCodigo(r^.hi);
     end;    
 end;
 
@@ -139,7 +151,6 @@ procedure aumentarEdadSocios(r: arbol);
 begin
     if(r <> nil) then begin
         r^.dato.edad := r^.dato.edad + 1;
-
         aumentarEdadSocios(r^.hi);
         aumentarEdadSocios(r^.hd);
     end;
@@ -147,13 +158,16 @@ end;
 
 function buscarNroSocio(r: arbol; n: integer): boolean;
 begin
-    if (r <> nil) then begin
+    if (r = nil) 
+        buscarNroSocio := false
+    else
         if (r^.dato.nro = n) then
             buscarNroSocio := true
-        else 
-            buscarNroSocio(r^.hi, n);
-            buscarNroSocio(r^.hd, n);
-    end;
+        else
+            if (r^.dato.nro > n) then
+                buscarNroSocio(r^.hi, n);
+            else 
+                buscarNroSocio(r^.hd, n);
 
 end;
 
@@ -168,11 +182,12 @@ var
 begin
     generarArbolSocios(raiz);
     
-    maxCodigo := buscarMayorCodigo(raiz, maxCodigo);
+    maxCodigo := buscarMayorCodigo(raiz);
+
+    buscarMayorNumeroDeSocio(raiz)
     writeln('El mayor numero de socio es: ', maxCodigo);
     
-    minCodigo := -9999;
-    buscarMenorCodigo(raiz, minSocio, minCodigo);
+    minSocio := buscarMenorCodigo(raiz);
     writeln('El socio con menor número de socio es: ', minSocio.nombre, ' con nro de socio: ', minSocio.nro);
 
     maxEdad := -1;
@@ -182,6 +197,25 @@ begin
     aumentarEdadSocios(raiz);
 
     existeSocio := buscarNroSocio(raiz, socioBuscado);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     
 

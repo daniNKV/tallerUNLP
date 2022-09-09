@@ -24,7 +24,7 @@ type
         puntaje: rangoPuntaje;
     end;
 
-    listaPeliculas = ^nodoPelicula
+    listaPeliculas = ^nodoPelicula;
     
     nodoPelicula = record
         dato: pelicula;
@@ -59,7 +59,7 @@ procedure generarVectorDeListas(var v: vectorGeneros);
     procedure agregarPelicula(var v:vectorGeneros; p: pelicula);
         procedure insertarOrdenado(var pi: listaPeliculas; p: pelicula);
         var
-            ant, act: listaPeliculas;
+            act: listaPeliculas;
             puntero: listaPeliculas;
             nuevoNodo: listaPeliculas; 
         begin
@@ -69,9 +69,9 @@ procedure generarVectorDeListas(var v: vectorGeneros);
             nuevoNodo^.sig := nil;
 
             if (pi = nil) then
-                pi := nuevoNodo;
+                pi := nuevoNodo
             else
-                while (p.codigo > puntero^.dato.codigo) and (puntero^.sig <> nil) do begin
+                while (p.codigo > puntero^.dato.codigo) and (puntero <> nil) do begin
                     act := puntero;
                     puntero := puntero^.sig;
                 end;
@@ -91,8 +91,9 @@ procedure generarVectorDeListas(var v: vectorGeneros);
     end;
 var
     peliculaNueva: pelicula;
+    
 begin
-    iniciarListas(peliculasPorGenero);
+    iniciarListas(v);
 
     leerPelicula(peliculaNueva);
     while (peliculaNueva.codigo <> -1) do begin
@@ -106,6 +107,6 @@ end;
 var
     peliculasPorGenero: vectorGeneros;
 begin
-
+    generarVectorDeListas(peliculasPorGenero);
 
 end.

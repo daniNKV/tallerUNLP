@@ -111,6 +111,9 @@ procedure generarArboles(var aVentas: arbolVentas; var aProductos: arbolProducto
         nodoProductoExistente: arbolProductosVendidos;
         
     begin
+        aVentas := nil;
+        aProductos := nil;
+
         nodoProductoExistente := buscarProducto(AP, v.codigo);
 
         if (nodoProductoExistente <> nil) then
@@ -133,7 +136,62 @@ begin
 
 end;
 
+procedure contarCantidadVendidos(a: arbolVentas);
+    function cantidadVendidos(a: arbolVentas; codigo: integer): integer;
+    begin
+        if (a = nil) then
+            cantidadVendidos := 0
+        else
+            if (a^.dato.codigo = codigo) then
+                cantidadVendidos := cantidadVendidos(a^.hd, codigo) + a^.dato.cantidad
+            else
+                if (a^.dato.codigo > codigo) then
+                    cantidadVendidos := cantidadVendidos(a^.hd, codigo)
+                else
+                    cantidadVendidos := cantidadVendidos(a^.hi, codigo);
+    end;
+var
+    codigoABuscar: integer;
+    cantidadVendida: integer;
+begin
+    write('Ingrese el producto del cual quiere saber la cantidad total vendida: ');
+    readln(codigoABuscar);
+    cantidadVendida := cantidadVendidos(a, codigoABuscar);
+    write('La cantidad vendida del producto ', codigoABuscar, ' es de: ', cantidadVendida);
+
+end;
+
+procedure buscarCantidadVendidos(AP: arbolProductosVendidos);
+    function buscarCantidadVendida(AP: arbolProductosVendidos; codigo: integer): integer;
+    begin
+        if (AP = nil) then
+            buscarCantidadVendida := 0
+        else
+            if (AP^.dato.codigo = codigo) then
+                buscarCantidadVendida := AP^.dato.cantidadVendida
+            else    
+                if (AP^.dato.codigo < codigo) then
+                    buscarCantidadVendida := buscarCantidadVendida(AP^.hi, codigo)
+                else
+                    buscarCantidadVendida := buscarCantidadVendida(AP^.hd, codigo);
+    end;
+var
+    codigoABuscar: integer;
 
 begin
+    write('Ingrese el codigo del cual quiere saber la cantidad vendida: ');
+    readln(codigoABuscar);
+    write('La cantidad vendida del producto ', codigoABuscar, ' es de: ', buscarCantidadVendida(AP, codigoABuscar))
 
+
+end;
+
+var 
+    aVentas: arbolVentas;
+    aProductos: arbolProductosVendidos;
+
+begin
+    generarArboles(aVentas, aProductos);
+    contarCantidadVendidos(aVentas);
+    buscarCantidadVendidos(aProductos);
 end.

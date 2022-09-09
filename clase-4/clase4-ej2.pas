@@ -102,11 +102,67 @@ begin
     end;
 end;
 
+procedure mergeListasGeneros(v: vectorGeneros; var pi: listaPeliculas);
+    procedure buscarMinimo(var v: vectorGeneros; var pMin: pelicula; var min: integer);
+    var
+        i: integer;
+        indiceMinimo: rangoGeneros;
+    begin
+        min := -1;
+        for i := 1 to cantidadGeneros do 
+            if (v[i] <> nil) and (v[i]^.dato.codigo < min) then begin
+                min := v[i]^.dato.codigo;
+                indiceMinimo := i;
+            end;
+        
+        pMin := v[indiceMinimo]^.dato;
+        v[indiceMinimo] := v[indiceMinimo]^.sig;
+    
+    end;
+
+    procedure agregarAtras(var pi: listaPeliculas; var pf: listaPeliculas; p: pelicula);
+    var
+        nuevoNodo: listaPeliculas;
+    begin
+        new(nuevoNodo);
+        nuevoNodo^.dato := p;
+
+        if (pi = pf) then begin
+            if (pi = nil) then begin
+                pi := nuevoNodo;
+                pf := nuevoNodo;
+            end
+            else
+                pi^.sig := pf;
+                pf := nuevoNodo;
+        end
+        else
+            pf^.sig := nuevoNodo;
+            pf := nuevoNodo;
+
+    end;
+var
+    pMin: pelicula;
+    min: integer;
+    pf: listaPeliculas;
+begin
+    pi := nil;
+    pf := nil;
+
+    buscarMinimo(v, pMin, min);
+    while (min <> -1) do begin
+        agregarAtras(pi, pf, pMin);
+        buscarMinimo(v, pMin, min);
+    end;
+    
+end;
 
 
 var
     peliculasPorGenero: vectorGeneros;
+    todasLasPeliculas: listaPeliculas;
 begin
     generarVectorDeListas(peliculasPorGenero);
 
+    mergeListasGeneros(peliculasPorGenero, todasLasPeliculas);
 end.

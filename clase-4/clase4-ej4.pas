@@ -6,3 +6,11 @@
 // listas deben estar ordenadas por código de obra de forma ascendente.
 // b. Genere una nueva lista que totalice la cantidad de entradas vendidas por obra. Esta lista
 // debe estar ordenada por código de obra de forma ascendente.
+
+program ej4;
+
+type
+    funcion = record
+
+    end;
+    vectorFunciones = array[] of funcion;

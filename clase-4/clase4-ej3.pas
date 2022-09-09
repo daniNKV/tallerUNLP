@@ -11,7 +11,7 @@ program ej3;
 const
     cantidadSucursales = 4;
 type
-    rangoSucursales 0 .. cantidadSucursales;
+    rangoSucursales = 0 .. cantidadSucursales;
 
     venta = record
         fecha: string;
@@ -54,15 +54,16 @@ procedure generarListasDeVentas(var v: vectorVentas);
     begin
         write('Ingrese sucursal donde se vendió el producto: ');
         readln(v.codigoSucursal);
-        if(v.codigo <> 0) then begin
+        if(v.codigoSucursal <> 0) then begin
             write('Ingrese fecha de venta: ');
             readln(v.fecha);
             write('Ingrese codigo del producto vendido:  ');
             readln(v.codigoProducto);
             write('Ingrese cantidad vendida: ');
             readln(v.cantidadVendida);
+        end;
     end;
-    procedure insertarOrdenado(pi: listaVentas; v: venta);
+    procedure insertarOrdenado(var pi: listaVentas; v: venta);
     var
         nuevoNodo: listaVentas;
         ant, act: listaVentas;
@@ -77,12 +78,12 @@ procedure generarListasDeVentas(var v: vectorVentas);
             act := act^.sig;
         end;
 
-        if (act = nil) then begin
-            pi := nuevoNodo;
+        if (act = nil) then 
+            pi := nuevoNodo
         else 
             ant^.sig := nuevoNodo;
             nuevoNodo^.sig := act;
-        end;
+        
     end;
 
 var
@@ -99,16 +100,15 @@ end;
 procedure generarListasDeVentasTotales(v: vectorVentas; var pi: listaVentasTotales);
     procedure insertarAtras(var pi, pf: listaVentasTotales; cod, total: integer);
     var
-        nuevo: nodoTotal;
-        act: listaVentasTotales;
+        nuevo: listaVentasTotales;
+
     begin
         new(nuevo);
         nuevo^.dato.codigoProducto := cod;
         nuevo^.dato.cantidadVendida := total;
         nuevo^.sig := nil;
-        act := pi;
         if (pi = nil) then
-            pi := nuevo;
+            pi := nuevo
         else
             pf^.sig := nuevo;
             nuevo := pf;
@@ -129,16 +129,15 @@ procedure generarListasDeVentasTotales(v: vectorVentas; var pi: listaVentasTotal
                 end;
         end;
 
-        if (codMin <> 9999) then begin
+        if (codMin <> 9999) then
             v[indiceMin] := v[indiceMin]^.sig;
-        end;
+        
     end; 
 var
     pf: listaVentasTotales;
-    ventaCodMin: venta;
     codActual: integer;
     total: integer;
-    codMin: integer,
+    codMin: integer;
     cantVentasMin: integer;
 begin
     pf := nil;
@@ -163,5 +162,5 @@ var
     totalVentas: listaVentasTotales;
 begin
     generarListasDeVentas(listasDeVentas);
-    generarListasDeVentasTotales(totalVentas);
+    generarListasDeVentasTotales(listasDeVentas, totalVentas);
 end.

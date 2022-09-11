@@ -5,5 +5,5 @@
 # done
 
 for i in {1..5}; do
-    echo > clase4-ej${i}.pas;
+    echo > clase5-ej${i}.pas;
 done;

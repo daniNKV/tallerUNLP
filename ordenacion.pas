@@ -2,15 +2,17 @@ procedure ordenarSeleccion(var v: vector; dimL: integer);
 var
     aux, p, i, j, k: integer;
 begin
-    for i := 1 to (dimL-1) do begin
-        p := i; 
 
-        for j := i+1 to dimL do begin
+    for i := 1 to (dimL-1) do begin // PARA TODOS LOS ELEMENTOS MENOS EL ULTIMO (porque compara con el siguiente)
+
+        p := i;  // busca después del ultimo elemento iterado
+
+        for j := i+1 to dimL do // BUSCO UN MENOR DESDE EL SIGUIENTE HASTA EL ULTIMO
             if v[j] < v[p] then
                 p := j;
-        end;
+    end;
 
-        aux := v[p];
+        aux := v[p]; // SWAP
         v[p] := v[i];
         v[i] := aux;
 

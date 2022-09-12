@@ -15,9 +15,9 @@
 program ej1;
 const
     cantidadOficinas = 300;
-    const ini = 1;
+    const ini = -1;
 type
-    indice = -1 .. cantidadOficinas;
+    indice = ini .. cantidadOficinas;
     expensa = record
         codigo: integer;
         dni: integer;
@@ -75,31 +75,32 @@ begin
 
 end;
 
-procedure buscarCodigo(var expensas: vectorExpensas, cantExpensas: indice); // expensas por ref por rendimiento
-    function indiceBuscado(var v: vectorExpensas; cod: integer; ini, fin: indice): indice;
+procedure buscarCodigo(var expensas: vectorExpensas; cantExpensas: indice); // expensas por ref por rendimiento
+    function indice(var v: vectorExpensas; cod: integer; ini, fin: indice): indice;
+    var
+        itemMedio: integer;
     begin
         itemMedio := fin DIV 2;
         if (v[itemMedio].codigo <> cod) then
             if (cod < v[itemMedio].codigo) then
-                indiceBuscado := indiceBuscado(v, cod, ini, fin DIV 2)
+                indice := indice(v, cod, ini, itemMedio)
             else
-                indiceBuscado := indiceBuscado(v, cod, itemMedio, fin)
+                indice := indice(v, cod, itemMedio, fin)
         else
             if (v[itemMedio].codigo = cod) then
-                indiceBuscado := v[itemMedio];
+                indice := itemMedio
             else 
-                indiceBuscado := -1;
+                indice := -1;
     end;
 
 var
     codigoBuscado: integer;
     indiceBuscado: integer;
-    expensaBuscada: expensa;
 begin
     write('Ingrese el código que desea buscar: ');
     readln(codigoBuscado);
 
-    indiceBuscado := indiceCodigoBuscado(expensas, codigoBuscado, ini, cantExpensas) );
+    indiceBuscado := indice(expensas, codigoBuscado, ini, cantExpensas) ;
     if indiceBuscado = -1 then
         writeln('No existe registro del código ingresado')
     else 
@@ -107,15 +108,13 @@ begin
 end;
 
 procedure informarMontoTotal(var e: vectorExpensas; dimL: indice);
-    function montoTotal(var e: expensas; dimL: indice): real;
+    function montoTotal(var e: vectorExpensas; dimL: indice): real;
     begin
-        if (dimL <> 0) do
+        if (dimL <> 0) then
             montoTotal := e[dimL].valor + montoTotal(e, (dimL-1))
         else
             montoTotal := 0;
     end;
-var
-    montoRecaudado: real;
 begin
     writeln('El monto recaudado es: ', montoTotal(e, dimL));
 end;
@@ -127,6 +126,6 @@ begin
     generarVector(expensas, cantExpensas);
     ordenarVector(expensas, cantExpensas);
     buscarCodigo(expensas, cantExpensas);
-    calcularMontoTotal(expensas, cantExpensas);
+    informarMontoTotal(expensas, cantExpensas);
 
 end.

@@ -15,7 +15,9 @@
 program ej1;
 const
     cantidadOficinas = 300;
+    const ini = 1;
 type
+    indice = -1 .. cantidadOficinas;
     expensa = record
         codigo: integer;
         dni: integer;
@@ -25,7 +27,7 @@ type
     vectorExpensas = array[1..cantidadOficinas] of expensa;
 
 
-procedure generarVector(var v: vectorExpensas);
+procedure generarVector(var v: vectorExpensas; var dimL: integer);
     procedure leerExpensa(var e: expensa);
     begin
         write('Ingrese codigo de identificacion: ');
@@ -43,24 +45,88 @@ var
 begin
     i := 0;
     leerExpensa(e);
+
     while (e.codigo <> -1) do begin
         i := i + 1;
         v[i] := e;
         leerExpensa(e);
     end;
+
+    dimL := i;
+    
 end;
 
-procedure ordenarVector(var v: vectorExpensas);
+procedure ordenarVector(var v: vectorExpensas; dimL: integer);
 var
-
+    i, j, min: integer;
+    aux: expensa;
 begin
 
+    for i := 1 to (dimL - 1) do begin
+        min := i;
+        for j := (i + 1) to dimL do 
+            if (v[i].codigo < v[j].codigo) then
+                min := j;
+        
+        aux := v[min];
+        v[min] := v[i];
+        v[i] := aux;
+    end;
+
+end;
+
+procedure buscarCodigo(var expensas: vectorExpensas, cantExpensas: indice); // expensas por ref por rendimiento
+    function indiceBuscado(var v: vectorExpensas; cod: integer; ini, fin: indice): indice;
+    begin
+        itemMedio := fin DIV 2;
+        if (v[itemMedio].codigo <> cod) then
+            if (cod < v[itemMedio].codigo) then
+                indiceBuscado := indiceBuscado(v, cod, ini, fin DIV 2)
+            else
+                indiceBuscado := indiceBuscado(v, cod, itemMedio, fin)
+        else
+            if (v[itemMedio].codigo = cod) then
+                indiceBuscado := v[itemMedio];
+            else 
+                indiceBuscado := -1;
+    end;
+
+var
+    codigoBuscado: integer;
+    indiceBuscado: integer;
+    expensaBuscada: expensa;
+begin
+    write('Ingrese el código que desea buscar: ');
+    readln(codigoBuscado);
+
+    indiceBuscado := indiceCodigoBuscado(expensas, codigoBuscado, ini, cantExpensas) );
+    if indiceBuscado = -1 then
+        writeln('No existe registro del código ingresado')
+    else 
+        writeln('El dni del codigo buscado es: ', expensas[indiceBuscado].dni);
+end;
+
+procedure informarMontoTotal(var e: vectorExpensas; dimL: indice);
+    function montoTotal(var e: expensas; dimL: indice): real;
+    begin
+        if (dimL <> 0) do
+            montoTotal := e[dimL].valor + montoTotal(e, (dimL-1))
+        else
+            montoTotal := 0;
+    end;
+var
+    montoRecaudado: real;
+begin
+    writeln('El monto recaudado es: ', montoTotal(e, dimL));
 end;
 
 var
     expensas: vectorExpensas;
+    cantExpensas: integer;
 begin
-    generarVector(expensas);
-    ordenarVector(expensas);
+    generarVector(expensas, cantExpensas);
+    ordenarVector(expensas, cantExpensas);
+    buscarCodigo(expensas, cantExpensas);
+    calcularMontoTotal(expensas, cantExpensas);
 
 end.

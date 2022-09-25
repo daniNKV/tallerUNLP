@@ -25,11 +25,14 @@ var
 
 begin
     for i := 2 to dimL do begin
-        act := v[i];
-        j := i - 1;
-        while(j > 0) and (v[j] > act) do begin
-            v[j + 1] := v[j];
-            j := j - 1;
+        act := v[i]; // establezco actual
+        j := i - 1; // posiciono en el anterior al actual
+
+        while (v[j] > act) and (j <> 0) do begin // Recorro hacia atras buscando un menor
+            v[j + 1] := v[j]; // como esta ordenado desplazo hacia la derecha todos los mayores al actual
+            j := j - 1; // *
         end;
-        v[j+1] := act;
+        // Escribo el actual en el lugar correcto
+        v[j + 1] := act; // El ultimo minimo hizo bajar a j en 1;
+
 end;

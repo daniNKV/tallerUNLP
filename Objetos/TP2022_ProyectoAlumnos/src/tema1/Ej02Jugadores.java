@@ -30,6 +30,8 @@ public class Ej02Jugadores {
             }
         }
         //Paso 9: Informar la cantidad.
+        System.out.println();
+        System.out.print("La cantidad de jugadores con altura superior al promedio es: " + cantAltos);
     }
     
 }

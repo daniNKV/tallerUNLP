@@ -21,6 +21,7 @@ public class Ej03Matrices {
         }
         //Paso 4. mostrar el contenido de la matriz en consola
         for (int i = 0; i < 5; i++){
+            System.out.print("i=" + i + " ");
             for (int j = 0; j < 5; j++){
                 System.out.print(matriz[i][j] + " ");   
             }
@@ -28,19 +29,25 @@ public class Ej03Matrices {
         }
         
         System.out.println();
+        
         //Paso 5. calcular e informar la suma de los elementos de la fila 1
+        int suma = 0;
         for (int i = 0; i < 5; i++){
-            System.out.print(matriz[1][i] + " ");
+            suma += matriz[0][i];
         }
+        System.out.print(suma);
+        
+        System.out.println();
+        
         //Paso 6. generar un vector de 5 posiciones donde cada posición j contiene la suma de los elementos de la columna j de la matriz. 
         //        Luego, imprima el vector.
 
-         System.out.println();
-        int [] vector = new int[5];
+        System.out.println();
+        int [] vector = {0,0,0,0,0};
         
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 5; j++) {
-                vector[i] = vector[i] + matriz[j][i];
+        for (int j = 0; j < 5; j++) {
+            for (int i = 0; i < 5; i++) {
+                vector[j] = vector[j] + matriz[i][j];
             }
         }
         
@@ -49,6 +56,27 @@ public class Ej03Matrices {
         }
         //Paso 7. lea un valor entero e indique si se encuentra o no en la matriz. En caso de encontrarse indique su ubicación (fila y columna)
         //   y en caso contrario imprima "No se encontró el elemento".
-
+        
+        System.out.println();
+        
+        int valorBuscado = 2;
+        
+        boolean encontrado = false;
+        int i = 0;
+           
+        while(encontrado == false && i < 5) {
+            int j = 0;
+            while (encontrado == false && j < 5){
+                if (valorBuscado == matriz[i][j]) {
+                    System.out.print("El valor se encuentra en la fila: " + i + " y columna: " + j);
+                    encontrado = true;
+                }else
+                    j++;
+            }
+            i++;
+        }
+        if (encontrado == false) {
+            System.out.print("El valor buscado no existe en la matriz");
+        }
     }
 }

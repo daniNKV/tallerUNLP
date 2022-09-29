@@ -20,35 +20,35 @@ almacenen como máximo N libros? ¿Cómo instanciaría el estante?*/
  */
 public class Estante {
     private int capacidad;
-    private int cantidadLibros = 0;
+    private int cantidad = 0;
     private Libro libros[];
     
     public Estante(int i) {
-        Libro libros[] = new Libro[i];
-        capacidad = i;
+        libros = new Libro[i];
+        this.setCapacidad(i);
+        
+    }
+    private void setCapacidad(int capacidad){
+        this.capacidad = capacidad;
     }
     
     public int getCantidad() {
-        return cantidadLibros;
+        return cantidad;
     }
-    public int getCapacidad() {
-        return capacidad;
-    }
+
     public Libro getLibro(int i){
         return libros[i];
     }
     
     public boolean quedaEspacio() {
-        if (this.getCantidad() < this.getCapacidad()){
-            return true;
-        }else
-            return false;
+        return this.getCantidad() < this.capacidad;
     }
     
     public void agregarLibro(Libro nuevoLibro) {
-        libros[cantidadLibros] = nuevoLibro;
-        cantidadLibros++;
-       
+        if (cantidad < capacidad) {
+            libros[cantidad] = nuevoLibro;
+            cantidad++;
+        }
     }
     
     public Libro buscarLibro(String nombre) {

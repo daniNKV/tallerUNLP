@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package tema3;
 
 /**
@@ -9,7 +6,6 @@ package tema3;
  * @author dani
  */
 public class Circulo {
-    private static double pi = Math.PI;
     private double radio;
     private String relleno;
     private String linea;
@@ -46,10 +42,10 @@ public class Circulo {
     }
 
     public double calcularPerimetro(){
-        return this.getDiametro() * pi;
+        return this.getDiametro() * Math.PI;
     }
     
     public double calcularArea() {
-        return pi * Math.sqrt(this.getRadio());
+        return Math.PI * Math.sqrt(this.getRadio());
     }
 }

@@ -42,6 +42,12 @@ public abstract class Empleado {
     public void setAntiguedad(int antiguedad) {
         this.antiguedad = antiguedad;
     }
+
+    public String toString() {
+        return "Empleado{" + "nombre=" + nombre + ", sueldo=" + sueldo + ", efectividad=" + this.calcularEfectividad() + '}';
+    }
+    
+    
     
     public abstract double calcularEfectividad();
     

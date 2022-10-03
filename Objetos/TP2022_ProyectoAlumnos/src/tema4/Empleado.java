@@ -43,5 +43,8 @@ public abstract class Empleado {
         this.antiguedad = antiguedad;
     }
     
+    public abstract double calcularEfectividad();
+    
+    public abstract double calcularSueldoACobrar();
     
 }

@@ -15,6 +15,14 @@ public class Ej02Equipo {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        Jugador jugador = new Jugador(5, 29, "John", 10000.0, 4);
+        Entrenador entrenador = new Entrenador(6, "Harry", 5000, 2);
+        
+        System.out.print(jugador.toString() + " " + jugador.calcularSueldoACobrar());
+        System.out.println();
+        System.out.print(entrenador.toString() + " " + entrenador
+                .calcularSueldoACobrar());
+    
     }
     
 }

@@ -25,7 +25,7 @@ public class Entrenador extends Empleado {
     
     @Override
     public double calcularEfectividad(){
-        return this.getCantidadTitulos() / this.getAntiguedad();
+        return (double)this.getCantidadTitulos() / (double)this.getAntiguedad();
     }
     @Override
     public double calcularSueldoACobrar(){

@@ -34,12 +34,14 @@ public class Jugador extends Empleado{
     }
     
     @Override
-    public double calcularEfectividad() {
-        return this.getCantidadGoles() / this.getCantidadPartidos();
+    public double calcularEfectividad(){
+        return (double)this.getCantidadGoles() / (double)this.getCantidadPartidos();
     }
+    @Override
     public double calcularSueldoACobrar(){
         double base = this.getSueldo();
         return this.calcularEfectividad() < 0.5 ? base + base * 0.1 : base * 2 + base + base * 0.1;
     }    
+  
     
 }

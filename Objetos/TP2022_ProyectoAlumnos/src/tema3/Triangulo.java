@@ -20,57 +20,62 @@ los lados y s = a+b+c
 /*
  * @author dani
  */
-public class Triangulo {
-    private double a = 10; 
-    private double b = 10;
-    private double c = 10;
-    private String relleno = "Blanco";
-    private String linea = "Negro";
-    
-    
-    public Triangulo() {
-        
-    }
+package tema3;
+
+import tema4.Figura;
+
+public class Triangulo extends Figura {
+    private double a; 
+    private double b;
+    private double c;
     
     public Triangulo(double ladoA, double ladoB, double ladoC){
-        a = ladoA;
-        b = ladoB;
-        c = ladoC;
+        this(ladoA, ladoB, ladoC, "Black", "White");
+    }
+    public Triangulo(double ladoA, double ladoB, double ladoC, String linea, String relleno){
+        super(relleno, linea);
+        this.a = ladoA;
+        this.b = ladoB;
+        this.c = ladoC;
     }
     
     public void setLadoA(double size) {
-        a = size;
+        this.a = size;
     }
     public double getLadoA() {
         return a;
     }
     public void setLadoB(double size) {
-        b = size;
+        this.b = size;
     }
     public double getLadoB() {
         return b;
     }
     public void setLadoC(double size) {
-        c = size;
+        this.c = size;
     }
     public double getLadoC() {
         return c;
     }
     
-    public void setLinea(String color) {
-        linea = color;
-    }
-    public void setFondo(String color){ 
-        relleno = color;
-    }
+    @Override
     public double calcularPerimetro() {
         return this.getLadoA() + this.getLadoB() + this.getLadoC();
     }
-    public double calcularArea(){
-        double s = this.calcularPerimetro() / 2;
-        double cuerpo = (s - this.getLadoA()) * (s - this.getLadoB()) * (s - this.getLadoC());
-       
-        return Math.sqrt(s * cuerpo);
-        
+    private double calcularSuperficie(){
+        return this.calcularPerimetro() / 2;
     }
+    @Override
+    public double calcularArea(){
+        double superficie = this.calcularSuperficie();
+        double cuerpo = (superficie - this.getLadoA()) * (superficie - this.getLadoB()) * (superficie - this.getLadoC());
+       
+        return Math.sqrt(superficie * cuerpo);
+    }
+    
+    @Override
+    public String toString(){
+        return super.toString() + " lado A: " + getLadoA() + " lado B: " + getLadoB() + " Lado C:  " + getLadoC();
+    }
+    
 }

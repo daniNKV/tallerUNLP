@@ -5,19 +5,14 @@ package tema3;
  *
  * @author dani
  */
-public class Circulo {
+import tema4.Figura;
+public class Circulo extends Figura {
     private double radio;
-    private String relleno;
-    private String linea;
-    
-    public Circulo() {
-        
-    }
     
     public Circulo(double radio, String colorRelleno, String colorLinea){
+        super(colorRelleno, colorLinea);
         this.radio = radio;
-        this.relleno = colorRelleno;
-        this.linea = colorLinea;
+    
     }
     public Circulo(double radio, String colorLinea) {
         this(radio, "Black", colorLinea);
@@ -25,27 +20,27 @@ public class Circulo {
     public void setRadio(double radio) {
         this.radio = radio;
     }
-    public void setColorLinea(String color){
-        this.linea = color;
-    }
-    public void setColorRelleno(String color){
-        this.relleno = color;
-    }
     public double getRadio(){
         return this.radio;
     }
-    public String getColores(){
-        return "Color Linea: " + this.linea + ", Color Relleno: " + this.relleno;
-    }
+
     public double getDiametro() {
         return this.radio * 2;
     }
 
+    @Override
     public double calcularPerimetro(){
         return this.getDiametro() * Math.PI;
     }
     
+    @Override
     public double calcularArea() {
         return Math.PI * Math.sqrt(this.getRadio());
     }
+    
+    @Override
+    public String toString() {
+        return super.toString() + " radio: " + this.getRadio();
+    }
 }
+

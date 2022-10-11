@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.dani.proyecto03productor;
+package proyecto03productor;
 
 /**
  *
@@ -26,14 +26,17 @@ public class Gira extends Recital{
     
     public void agregarFecha(Fecha fecha) {
         this.fechas[fechasAlocadas] = fecha;
+        this.fechasAlocadas++;
     }
     
     public void actuar(){
         System.out.print("Buenas Noches..." + this.fechas[fechaActual].getCiudad());
         System.out.println();
-        System.out.print(super.toString());
+        super.actuar();
+        this.fechaActual++;
     }
     
+    @Override
     public double calcularCosto(){
         return this.fechasAlocadas * this.costoFecha;
     }

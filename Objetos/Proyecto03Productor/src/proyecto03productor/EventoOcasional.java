@@ -1,4 +1,4 @@
-package com.dani.proyecto03productor;
+package proyecto03productor;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -39,6 +39,8 @@ public class EventoOcasional extends Recital {
               
         super.toString();
         System.out.println("Recuerden colaborar con... " + this.getNombreEmpleador()); 
+        System.out.println();
+        super.actuar();
     }
     
     public String getNombreEmpleador(){

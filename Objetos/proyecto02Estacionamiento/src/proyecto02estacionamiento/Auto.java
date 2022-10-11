@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.dani.proyectoestacionamiento02;
+package proyecto02estacionamiento;
 
 /**
  *
@@ -12,6 +12,12 @@ public class Auto {
     private String nombrePropietario;
     private String patente;
 
+    public Auto(String nombrePropietario, String patente) {
+        this.nombrePropietario = nombrePropietario;
+        this.patente = patente;
+    }
+
+    
     public String getNombrePropietario() {
         return nombrePropietario;
     }

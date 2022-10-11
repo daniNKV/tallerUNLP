@@ -14,5 +14,8 @@ public class CoroSemicircular extends Coro {
         super(nombre, director, 1, coristasPorFila);
     }
     
+    public void agregarCorista(Integrante corista){
+
+    }
     
 }

@@ -4,3 +4,6 @@
 *.o
 .vscode
 /Objetos/proyectoUNLP01/target/
+/Objetos/JavaApplication1/nbproject/private/
+/Objetos/proyecto02Estacionamiento/nbproject/private/
+/Objetos/proyecto02Estacionamiento/build/

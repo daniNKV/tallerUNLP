@@ -12,12 +12,17 @@ public abstract class Coro {
     private String nombre;
     private String director;
     private Integrante coristas[][];
+    private int filasCompletas = 0;
+    private int coristasEnFila = 0;
 
     public Coro(String nombre, String director,int cantidadFilas, int coristasPorFila) {
         this.nombre = nombre;
         this.director = director;
         this.coristas = new Integrante[cantidadFilas][coristasPorFila];
     }
+    
+    public abstract void agregarCorista();
+    
     
     
 }

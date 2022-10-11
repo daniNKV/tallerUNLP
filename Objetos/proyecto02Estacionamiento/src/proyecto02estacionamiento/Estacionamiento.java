@@ -1,4 +1,4 @@
-package com.dani.proyectoestacionamiento02;
+package proyecto02estacionamiento;
 
 import java.util.Arrays;
 
@@ -42,6 +42,9 @@ public class Estacionamiento {
     public void registrarAuto(Auto auto, int piso, int plaza){
         this.pisos[piso][plaza] = auto;
     }
+    public void eliminarAuto(int piso, int plaza){
+        this.pisos[piso][plaza] = null;
+    }
     
     public String buscarPatente(String patente){
         int i = 0;
@@ -54,7 +57,7 @@ public class Estacionamiento {
                 if(patente.equals(pisos[i][j].getPatente())){
                     fueEncontrado = true;
                     i--;
-                }else {
+              }else {
                     j++;           
                 }
             }
@@ -115,14 +118,40 @@ public class Estacionamiento {
         this.cantidadPlazasPorPiso = cantidadPlazasPorPiso;
     }
     
+    private boolean plazaLibre(int piso, int plaza){
+        return pisos[piso][plaza] == null;
+    }
+    
+    public int contarAutosEnPlaza(int plaza){
+        int total = 0;
+        for (int i = 0; i < this.cantidadPisos; i++){
+            if (this.plazaLibre(i, plaza)){
+                total += 1;
+            }
+        }
+        
+        return total;
+    }
     
  
     @Override
     public String toString() {
-        return "Estacionamiento{" + "nombre=" + nombre + ", direccion=" + direccion + ", hora_cierre=" + hora_cierre + ", hora_apertura=" + hora_apertura + ", cantidadPisos=" + cantidadPisos + ", cantidadPlazasPorPiso=" + cantidadPlazasPorPiso ;
+        String str = "";
+        
+        for (int i = 0; i < this.cantidadPisos; i++) {
+            str += "Piso " + i + ": " + System.lineSeparator();
+            for(int j = 0; j < this.cantidadPlazasPorPiso; j++) {
+               str += "Plaza " + j + ": ";
+               if (this.plazaLibre(i, j)) {
+                   str += "Libre";
+               }else {
+                   str += this.pisos[i][j].toString();
+               }
+               System.lineSeparator();
+            }
+            System.lineSeparator();
+        }
+        return str;
     }
-
-    
-    
     
 }

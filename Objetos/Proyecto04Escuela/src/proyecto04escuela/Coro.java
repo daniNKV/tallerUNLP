@@ -34,25 +34,31 @@ public abstract class Coro {
     }
     
     public int getFilasPosibles(){
-        return this.coristas[0].length;
+        return this.coristas.length;
     }
     public int getCapacidadFilas(){
-        return this.coristas.length;
+        return this.coristas[0].length;
     }
     
     public abstract boolean ordenadoCorrectamente();
 
-    @Override
+    public String estaOrdenado(){
+        if (this.ordenadoCorrectamente() == true) {
+            return "Está ordenado correctamente";
+        }else
+            return "El orden no es correcto";
+    }
+    
     public String toString() {
-        return "Coro " + "nombre=" + nombre + director.toString() + "\n";
+        return "Coro " + "nombre=" + nombre + director.toString() + "\n" + this.coristasToString();
     }
     
     public String coristasToString(){
         String str = "";
-        
+        System.out.print(this.getCapacidadFilas());
         for(int i = 0; i < this.getFilasPosibles(); i++){
             str += "Fila " + i + ": " + "\n";
-            for(int j = 0; i < this.getCapacidadFilas(); j++){
+            for(int j = 0; j < this.getCapacidadFilas(); j++){
                 str += this.getCorista(i, j).toString() + "\n";
             }
         }

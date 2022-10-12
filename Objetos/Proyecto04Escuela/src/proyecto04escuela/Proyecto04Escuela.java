@@ -24,8 +24,18 @@ public class Proyecto04Escuela {
             }
         }
         
-        for (int i=0; i <3 ; i++){
+        for (int j=0; j < 3 ; j++){
             coroC.agregarCorista(new Corista(GeneradorAleatorio.generarInt(10), GeneradorAleatorio.generarString(5), GeneradorAleatorio.generarInt(2000), GeneradorAleatorio.generarInt(90)));
         }
+        
+        System.out.println("coro M: " + coroM.estaOrdenado());
+        System.out.println("coro C: " + coroC.estaOrdenado());
+        System.out.println();
+        System.out.print(coroM.toString());
+        System.out.print(coroC.toString());
+        
+        coroM.toString();
+        coroC.toString();
+       
     }
 }

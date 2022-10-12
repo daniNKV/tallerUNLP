@@ -23,7 +23,7 @@ public class CoroMatriz extends Coro {
     }
     
     public void agregarCorista(Corista corista) {
-        if (coristasEnFila < capacidadFila) {
+        if (coristasEnFila <= capacidadFila) {
             super.agregar(filasLlenas, coristasEnFila, corista);
             coristasEnFila++;
             

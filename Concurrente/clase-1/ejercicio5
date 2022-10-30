@@ -1,0 +1,100 @@
+programa ejercicio5
+procesos
+  proceso JuntarPapeles(ES cantidad: numero)
+  comenzar
+    mientras(HayPapelEnLaEsquina)
+      tomarPapel
+      cantidad := cantidad + 1
+  fin
+  
+  proceso JuntarFlores(ES cantidad: numero)
+  comenzar
+    mientras(HayFlorEnLaEsquina)
+      tomarFlor
+      cantidad := cantidad + 1
+  fin
+  proceso LimpiarAvenida
+  variables
+    cant: numero
+    inicio: numero
+  comenzar
+    cant := 0
+    inicio := PosCa
+    
+    repetir 19
+      mientras(HayPapelEnLaEsquina)
+        JuntarPapeles(cant)
+      mover
+    
+    Pos(PosAv, inicio)
+    
+    mientras(cant > 0)
+      depositarPapel   
+  
+  fin
+  
+  proceso LimpiarCalle
+  variables
+    cant: numero
+  comenzar
+    cant := 0
+    repetir 19
+      mientras(HayFlorEnLaEsquina)
+        JuntarFlores(cant)
+      mover
+    
+    mientras(cant > 0)
+      depositarFlor
+  fin
+  proceso LimpiarCalles
+  comenzar
+    LimpiarCalle
+    Pos(PosAv - 19, PosCa + 5)
+    LimpiarCalle
+  fin
+  proceso LimpiarAvenidas
+  comenzar
+    LimpiarAvenida
+    Pos(PosAv + 5, PosCa)
+    LimpiarAvenida
+  fin
+
+areas
+  area1: AreaP(1, 75, 20, 80)
+  area2: AreaP(75, 80, 80, 100)
+  area3: AreaP(81, 10, 100, 15)
+  area4: AreaP(10, 1, 15, 20)
+
+robots
+  robot robot1
+  comenzar
+    derecha
+    LimpiarCalles
+  fin
+  
+  robot robot2
+  comenzar
+    LimpiarAvenidas
+  fin
+
+
+variables
+  R-info1: robot1 
+  R-info2: robot2 
+  R-info3: robot1
+  R-info4: robot2 
+
+
+
+comenzar
+  AsignarArea(R-info1, area1)
+  AsignarArea(R-info2, area2)
+  AsignarArea(R-info3, area3)
+  AsignarArea(R-info4, area4)
+  
+  Iniciar(R-info1, 1, 75)
+  Iniciar(R-info2, 75, 80)
+  Iniciar(R-info3, 81, 10)
+  Iniciar(R-info4, 10, 1)
+
+fin

@@ -1,0 +1,119 @@
+programa ejercicio3
+procesos
+  proceso JuntarFlores(ES cantidad: numero)
+  comenzar
+    mientras(HayFlorEnLaEsquina)
+      tomarFlor
+      cantidad := cantidad + 1
+  fin
+  
+  proceso JuntarPapeles(ES cantidad: numero)
+  comenzar
+    mientras(HayPapelEnLaEsquina)
+      tomarPapel
+      cantidad := cantidad + 1
+  fin
+  
+  proceso LimpiarTramoFlores(ES cantidad: numero)
+  comenzar
+    repetir 9
+      JuntarFlores(cantidad)
+      mover
+    JuntarFlores(cantidad)
+  fin
+  
+  proceso LimpiarTramoPapeles(ES cantidad: numero)
+  comenzar
+    repetir 9
+      JuntarPapeles(cantidad)
+      mover
+    JuntarPapeles(cantidad)
+  fin
+  
+areas
+  area1: AreaPC(1,1,40,1)
+  area2: AreaPC(1, 5, 40, 5)
+
+robots
+  robot tipo1
+  variables
+    cantidad: numero
+    cant2: numero
+  comenzar
+    cantidad := 0
+    derecha
+    
+    LimpiarTramoPapeles(cantidad)
+    EnviarMensaje(cantidad,A2)
+    Pos(PosAv + 11, PosCa)
+    RecibirMensaje(cantidad, A2)
+    LimpiarTramoFlores(cantidad)
+    EnviarMensaje(cantidad, A2)
+    
+    
+  fin
+  
+  robot tipo2
+  variables
+    cantidad: numero
+  comenzar
+    derecha
+    RecibirMensaje(cantidad, A1)
+    LimpiarTramoPapeles(cantidad)
+    EnviarMensaje(cantidad, A1)
+    Pos(PosAv + 11, PosCa)
+    RecibirMensaje(cantidad, A1)
+    LimpiarTramoPapeles(cantidad)
+    Informar(cantidad)
+  fin
+  
+  robot tipo3
+  variables
+    cantidad: numero
+  comenzar
+    cantidad := 0
+    derecha
+    LimpiarTramoFlores(cantidad)
+    EnviarMensaje(cantidad, B2)
+    Pos(PosAv + 11, PosCa)
+    RecibirMensaje(cantidad, B2)
+    LimpiarTramoFlores(cantidad)
+    
+    EnviarMensaje(cantidad, B2)
+  fin
+  
+  robot tipo4
+  variables
+    cantidad: numero
+  comenzar
+    derecha
+    RecibirMensaje(cantidad, B1)
+    LimpiarTramoFlores(cantidad)
+    EnviarMensaje(cantidad, B1)
+    Pos(PosAv + 11, PosCa)
+    RecibirMensaje(cantidad, B1)
+    LimpiarTramoFlores(cantidad)
+    
+    Informar(cantidad)
+    
+    
+  fin
+  
+variables
+  A1: tipo1
+  A2: tipo2
+  B1: tipo3
+  B2: tipo4
+  
+comenzar
+  AsignarArea(A1, area1)
+  AsignarArea(A2, area1)
+  AsignarArea(B1, area2)
+  AsignarArea(B2, area2)
+  
+  Iniciar(A1, 1, 1)
+  Iniciar(A2, 11, 1)
+  Iniciar(B1, 1, 5)
+  Iniciar(B2, 11, 5)
+
+fin

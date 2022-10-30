@@ -1,0 +1,66 @@
+programa ejercicio1 
+
+procesos 
+  proceso JuntarFlores(ES cantidad: numero)
+  comenzar 
+    mientras(HayFlorEnLaEsquina)
+      tomarFlor
+      cantidad := cantidad + 1
+  fin
+  
+  proceso LimpiarAvenida(ES cantidad: numero)
+  comenzar
+    repetir 9
+      JuntarFlores(cantidad)
+      mover
+    JuntarFlores(cantidad)
+  fin
+
+areas
+  area1: AreaP(1,1, 1, 10)
+  area2: AreaP(2, 11, 2, 20)
+
+
+robots
+  robot tipo1
+  variables 
+    cantidad: numero
+    cantidadCompetidor: numero
+  comenzar 
+    cantidad := 0 
+    LimpiarAvenida(cantidad) 
+    
+    EnviarMensaje(cantidad, robot2) 
+    RecibirMensaje(cantidadCompetidor, robot2) 
+    
+    si(cantidad > cantidadCompetidor)
+      Informar(cantidad - cantidadCompetidor)
+  fin 
+  
+  robot tipo2
+  variables
+    cantidad: numero
+    cantidadCompetidor: numero
+  comenzar 
+    cantidad := 0 
+    LimpiarAvenida(cantidad) 
+    
+    EnviarMensaje(cantidad, robot1) 
+    RecibirMensaje(cantidadCompetidor, robot1) 
+    
+    si(cantidad > cantidadCompetidor)
+      Informar(cantidad - cantidadCompetidor)
+  fin  
+
+variables 
+  robot1: tipo1 
+  robot2: tipo2 
+
+comenzar 
+  AsignarArea(robot1, area1) 
+  AsignarArea(robot2, area2) 
+  
+  Iniciar(robot1, 1,1) 
+  Iniciar(robot2, 2, 11) 
+
+fin

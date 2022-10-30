@@ -1,0 +1,64 @@
+programa ejercicio1A
+
+procesos  
+  proceso RecorrerAvenida
+  variables
+    esquinasSinFlores: numero
+    floresJuntadas: numero
+  comenzar 
+    esquinasSinFlores := 0
+    floresJuntadas := 0
+    mientras(PosCa < 100)  
+      si~(HayFlorEnLaEsquina)  
+        esquinasSinFlores := esquinasSinFlores + 1 
+
+      mientras(HayFlorEnLaEsquina)  
+        tomarFlor   
+      mover   
+      
+    mientras(HayFlorEnLaBolsa)
+      floresJuntadas := floresJuntadas + 1  
+      depositarFlor  
+    Informar(esquinasSinFlores)
+    Informar(floresJuntadas)  
+    
+
+  fin 
+areas
+  ciudad: AreaC(1,1,100,100)
+robots  
+  robot robot1
+  comenzar
+    Pos(1,1)
+    RecorrerAvenida
+  fin
+   
+  robot robot2
+  comenzar
+    Pos(3,1)
+    RecorrerAvenida
+  fin
+  
+  robot robot3
+  
+  comenzar  
+    Pos(5,1)
+    RecorrerAvenida
+            
+  fin    
+
+variables  
+  R-info1: robot1 
+  R-info2: robot2
+  R-info3: robot3
+
+comenzar  
+  AsignarArea(R-info1, ciudad)  
+  AsignarArea(R-info2, ciudad)
+  AsignarArea(R-info3, ciudad)
+  Iniciar(R-info1, 1, 1)  
+  Iniciar(R-info2, 3, 1)
+  Iniciar(R-info3, 5, 1)
+
+fin        
+ 

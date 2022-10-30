@@ -1,0 +1,71 @@
+programa ejercicio4
+procesos
+  proceso LimpiarEsquina(ES cantidad: numero)
+  comenzar
+    mientras(HayFlorEnLaEsquina)
+      tomarFlor
+      cantidad := cantidad + 1
+    mientras(HayPapelEnLaEsquina)
+      tomarPapel
+      cantidad := cantidad + 1
+  fin
+  
+areas
+  cuadrante: AreaC(1,1, 100,100)
+
+robots
+  robot tipoFiscal 
+  variables
+    ID_aleatoria: numero
+  comenzar
+    repetir 10
+      Random(ID_aleatoria, 1, 4)
+      EnviarMensaje()
+      
+      
+  fin
+  
+  robot tipo1
+  variables
+    calle: numero
+    avenida: numero
+    calleInicial: numero
+    avenidaInicial: numero
+    ID: numero
+  comenza
+    EsperarMensaje(ID, fiscal)
+    calleInicial := PosCa
+    
+    Random(calle, 25, 75)
+    Random(avenida, 25, 75)
+    
+    Pos(avenida, calle)
+    
+    LimpiarEsquina(cantidadJuntada)
+    
+    EnviarMensaje(cantidadJuntada, fiscal)
+    
+    Pos()
+      
+  fin
+
+variables
+  robot1: tipo1
+  robot2: tipo1
+  robot3: tipo1
+  robot4: tipo1
+  fiscal: tipoFiscal
+comenzar
+  AsignarArea(robot1, cuadrante)
+  AsignarArea(robot2, cuadrante)
+  AsignarArea(robot3, cuadrante)
+  AsignarArea(robot4, cuadrante)
+  AsignarArea(fiscal, cuadrante)
+  
+  Iniciar(robot1, 25,1)
+  Iniciar(robot2, 30,1)
+  Iniciar(robot3, 35,1)
+  Iniciar(robot4, 40,1)
+  Iniciar(fiscal, 1,1)
+
+fin

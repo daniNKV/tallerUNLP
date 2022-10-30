@@ -1,0 +1,141 @@
+programa ejercicio3
+
+procesos
+  proceso LevantarFlor(ES hayFlor: boolean)
+  comenzar
+    si(HayFlorEnLaEsquina)
+      tomarFlor
+      hayFlor := V
+    sino
+      hayFlor := F
+  fin
+areas
+  area1: AreaC(1,1, 10,10)
+robots
+  robot fiscal
+  variables
+    avAleatoria: numero
+    caAleatoria: numero
+    hayFlor: boolean
+    cant1: numero
+    cant2: numero
+    cant3: numero
+    cant4: numero
+    ID_ganador: numero
+    ID: numero
+    cantGanador: numero
+    final: boolean
+  
+  comenzar
+    cantGanador := -1
+    hayFlor := V
+    final := F
+    
+    {Random(avAleatoria, 2, 10)}
+    {Random(caAleatoria, 2, 10)}
+    avAleatoria := 5
+    caAleatoria := 9
+    
+    EnviarMensaje(final, robot1)
+    EnviarMensaje(final, robot2)
+    EnviarMensaje(final, robot3)
+    EnviarMensaje(final, robot4)
+    
+    mientras(hayFlor)
+      EnviarMensaje(1, robot1)
+      EnviarMensaje(avAleatoria, robot1)
+      EnviarMensaje(caAleatoria, robot1)
+      
+      EnviarMensaje(2, robot2)
+      EnviarMensaje(avAleatoria, robot2)
+      EnviarMensaje(caAleatoria, robot2)
+      
+      EnviarMensaje(3, robot3)
+      EnviarMensaje(avAleatoria, robot3)
+      EnviarMensaje(caAleatoria, robot3)
+      
+      EnviarMensaje(4, robot4)
+      EnviarMensaje(avAleatoria, robot4)
+      EnviarMensaje(caAleatoria, robot4)
+      
+      repetir 4
+        RecibirMensaje(ID, *)
+        si(ID = 1)
+          RecibirMensaje(hayFlor, robot1)
+          si(hayFlor)
+            cant1 := cant1 + 1
+        sino
+          si(ID = 2)
+            RecibirMensaje(hayFlor, robot2)
+            si(hayFlor)
+              cant2 := cant2 + 1
+          sino
+            si(ID = 3)
+              RecibirMensaje(hayFlor, robot3)
+              si(hayFlor)
+                cant3 := cant3 + 1
+            sino
+              RecibirMensaje(hayFlor, robot4)
+              si(hayFlor)
+                cant4 := cant4 + 1
+        
+      si(~hayFlor)
+        final := V 
+        EnviarMensaje(final, robot1)
+        EnviarMensaje(final, robot2)
+        EnviarMensaje(final, robot3)
+        EnviarMensaje(final, robot4)
+  fin
+  
+  robot florero
+  variables
+    avDestino: numero
+    caDestino: numero
+    avInicial: numero
+    caInicial: numero
+    encontroFlor: boolean
+    ID: numero
+    termino: boolean
+  comenzar 
+    RecibirMensaje(termino, jefe)
+    mientras(~termino)
+      RecibirMensaje(ID, jefe)
+      RecibirMensaje(avDestino, jefe)
+      RecibirMensaje(caDestino, jefe)
+    
+      avInicial := PosAv
+      caInicial := PosCa
+    
+      BloquearEsquina(avDestino, caDestino)
+      Pos(avDestino, caDestino)
+      LevantarFlor(encontroFlor)
+      Pos(avInicial, caInicial)
+      LiberarEsquina(avDestino, caDestino)
+    
+      EnviarMensaje(ID, jefe)
+      EnviarMensaje(encontroFlor, jefe)
+      
+      RecibirMensaje(termino, jefe)
+   
+  fin
+
+variables
+  robot1: florero
+  robot2: florero
+  robot3: florero
+  robot4: florero
+  jefe: fiscal
+comenzar
+  AsignarArea(robot1, area1)
+  AsignarArea(robot2, area1)
+  AsignarArea(robot3, area1)
+  AsignarArea(robot4, area1)
+  AsignarArea(jefe, area1)
+  
+  Iniciar(robot1, 2,1)
+  Iniciar(robot2, 3,1)
+  Iniciar(robot3, 4,1)
+  Iniciar(robot4, 5,1)
+  Iniciar(jefe, 1,1)
+
+fin

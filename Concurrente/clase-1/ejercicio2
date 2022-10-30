@@ -1,0 +1,72 @@
+programa ejercicio2
+
+procesos
+  proceso Limpiar
+  variables
+    papelesJuntados: numero
+  comenzar
+    papelesJuntados := 0
+    
+    repetir 20
+      mientras(HayPapelEnLaEsquina)
+        tomarPapel
+        papelesJuntados := papelesJuntados + 1
+      mover
+      
+    Informar(papelesJuntados)
+  fin
+
+  proceso Girar(E veces:numero)
+  comenzar
+    repetir veces
+      derecha
+  fin
+ 
+areas
+  ciudad: AreaC(10,10, 30, 30)
+
+robots
+  robot robot1
+  comenzar
+    Limpiar
+  fin
+  
+  robot robot2
+  comenzar
+    Girar(1)
+    Limpiar
+  fin
+  
+  robot robot3
+  comenzar
+    Girar(2)
+    Limpiar
+  fin
+  
+  robot robot4
+  comenzar
+    Girar(3)
+    Limpiar
+  fin
+  
+
+variables
+  R-info1: robot1
+  R-info2: robot2
+  R-info3: robot3
+  R-info4: robot4
+
+comenzar
+  AsignarArea(R-info1, ciudad)
+  AsignarArea(R-info2, ciudad)
+  AsignarArea(R-info3, ciudad)
+  AsignarArea(R-info4, ciudad)
+  Iniciar(R-info1, 10,10)
+  Iniciar(R-info2, 10, 30)
+  Iniciar(R-info3, 30, 30)
+  Iniciar(R-info4, 30, 10)
+
+
+
+
+fin

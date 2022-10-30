@@ -1,7 +1,6 @@
-*
-!*/
-!*.*
+
 *.o
+
 .vscode
 /Objetos/proyectoUNLP01/target/
 /Objetos/JavaApplication1/nbproject/private/

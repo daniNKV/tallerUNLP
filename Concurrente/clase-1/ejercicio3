@@ -1,0 +1,118 @@
+programa ejercicio3
+
+
+procesos
+
+  proceso Supera(E flores: numero; E papeles: numero; ES resultado: boolean)
+  comenzar
+    si (papeles = flores + 1)
+      resultado := V
+    sino 
+      resultado := F
+  fin
+  
+  proceso JuntarPapeles(ES papeles: numero)
+  variables
+    cantidadEsquina: numero
+  comenzar
+    cantidadEsquina := 0
+    mientras(HayPapelEnLaEsquina)
+      tomarPapel
+      cantidadEsquina := cantidadEsquina + 1
+    
+    papeles := papeles + cantidadEsquina
+    
+    repetir cantidadEsquina
+      depositarPapel
+  fin
+  
+  proceso JuntarFlores(ES flores: numero)
+  variables
+    cantidadEsquina: numero
+  comenzar
+    cantidadEsquina := 0
+    
+    mientras(HayPapelEnLaEsquina)
+      tomarFlor
+      cantidadEsquina := cantidadEsquina + 1
+    
+    flores := flores + cantidadEsquina
+    
+    repetir cantidadEsquina
+      depositarPapel
+  fin
+
+  proceso Limpiar(ES flores: numero; ES papeles: numero)
+  comenzar
+    JuntarFlores(flores)
+    JuntarPapeles(papeles)
+  fin
+  
+  proceso SubirEscalon(E tamano: numero; ES cumple: boolean)
+  variables
+    floresEscalon: numero
+    papelesEscalon: numero
+  comenzar
+    floresEscalon := 0
+    papelesEscalon := 0
+
+    repetir tamano
+      Limpiar(floresEscalon, papelesEscalon)
+      mover
+    derecha
+    repetir tamano
+      Limpiar(floresEscalon, papelesEscalon)
+      mover
+    repetir 3
+      derecha  
+    
+    Supera(floresEscalon, papelesEscalon, cumple)
+  fin
+
+  proceso SubirEscalones(ES cantidadCumplen: numero)
+  variables
+    tamano: numero
+    escalonesQueCumplen: numero
+    unPapelMas: boolean
+  comenzar
+    tamano := 0
+    escalonesQueCumplen := 0
+    repetir 4
+      tamano := tamano + 1
+      SubirEscalon(tamano, unPapelMas)
+      si(UnPapelMas)
+        escalonesQueCumplen := escalonesQueCumplen + 1
+    
+    cantidadCumplen := cantidadCumplen + escalonesQueCumplen
+  fin
+areas
+  ciudad: AreaC(1,1,100,100)
+
+robots
+  robot tipo1
+  variables
+    cantidadCumplen: numero
+  comenzar
+    cantidadCumplen := 0
+    SubirEscalones(cantidadCumplen)
+    Informar(CantidadCumplen)
+  fin
+  
+variables
+  R-info1: tipo1
+  R-info2: tipo1
+  R-info3: tipo1
+
+
+comenzar
+  AsignarArea(R-info1, ciudad)
+  AsignarArea(R-info2, ciudad)
+  AsignarArea(R-info3, ciudad)
+
+  Iniciar(R-info1, 12, 14)
+  Iniciar(R-info2, 17, 10)
+  Iniciar(R-info3, 22, 6)
+
+
+
+fin

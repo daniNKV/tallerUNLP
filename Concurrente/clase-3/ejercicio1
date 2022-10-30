@@ -1,0 +1,107 @@
+programa ejercicio1
+procesos
+  proceso JuntarFlores(ES cantidad: numero)
+  comenzar
+    mientras(HayFlorEnLaEsquina)
+      tomarFlor
+      cantidad := cantidad + 1
+  fin
+  
+  proceso JuntarPapeles(ES cantidad: numero)
+  comenzar
+    mientras(HayPapelEnLaEsquina)
+      tomarPapel
+      cantidad := cantidad + 1
+  fin
+  
+  proceso VaciarFlores(E cantidad: numero)
+  comenzar
+    repetir cantidad
+      depositarFlor
+  fin
+
+  proceso VaciarPapeles(E cantidad: numero)
+  comenzar
+    repetir cantidad
+      depositarPapel
+  fin
+areas
+  area1: AreaC(1,1,10,10)
+  
+robots
+  robot florero
+  variables
+    floresJuntadas: numero
+    calleInicial: numero
+    avenidaInicial: numero
+    calleAleatoria: numero
+    avenidaAleatoria: numero
+    
+  comenzar
+    floresJuntadas := 0
+    calleInicial := PosCa
+    avenidaInicial := PosAv    
+
+    repetir 5
+      Random(calleAleatoria, 1, 10)
+      Random(avenidaAleatoria, 1, 5)
+      
+      BloquearEsquina(avenidaAleatoria, calleAleatoria)
+      Pos(avenidaAleatoria, calleAleatoria)
+      JuntarFlores(floresJuntadas)
+      Pos(avenidaInicial, calleInicial)
+      LiberarEsquina(avenidaAleatoria, calleAleatoria)
+      
+    BloquearEsquina(10, 10)
+    Pos(10, 10)
+    VaciarFlores(floresJuntadas)
+    Pos(avenidaInicial, calleInicial)
+    LiberarEsquina(10,10)
+  fin
+  
+  robot papelero
+  variables
+    papelesJuntados: numero
+    avenidaInicial: numero
+    calleInicial: numero
+    avenidaAleatoria: numero
+    calleAleatoria: numero
+  comenzar
+    avenidaInicial := PosAv
+    calleInicial := PosCa
+    papelesJuntados := 0
+    
+    repetir 3
+      Random(avenidaAleatoria, 6, 10)
+      Random(calleAleatoria, 1, 9)
+      
+      BloquearEsquina(avenidaAleatoria, calleAleatoria)
+      Pos(avenidaAleatoria, calleAleatoria)
+      JuntarPapeles(papelesJuntados)
+      Pos(avenidaInicial, calleInicial)
+      LiberarEsquina(avenidaAleatoria, calleAleatoria)
+      
+    BloquearEsquina(10, 10)
+    Pos(10, 10)
+    VaciarPapeles(papelesJuntados)
+    Pos(avenidaInicial, calleInicial)
+    LiberarEsquina(10, 10)
+    
+  fin
+variables
+  robot1: florero
+  robot2: florero
+  robot3: papelero
+  robot4: papelero
+comenzar
+  AsignarArea(robot1, area1)
+  AsignarArea(robot2, area1)
+  AsignarArea(robot3, area1)
+  AsignarArea(robot4, area1)
+  
+  Iniciar(robot1, 6,10)
+  Iniciar(robot2, 7,10)
+  Iniciar(robot3, 8,10)
+  Iniciar(robot4, 9,10) 
+ 
+fin

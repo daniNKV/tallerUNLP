@@ -1,0 +1,112 @@
+programa ejercicio1 
+
+procesos 
+  proceso JuntarFlores(ES cantidad: numero)
+  comenzar 
+    mientras(HayFlorEnLaEsquina)
+      tomarFlor
+      cantidad := cantidad + 1
+  fin
+  
+  proceso LimpiarAvenida(ES cantidad: numero)
+  comenzar
+    repetir 9
+      JuntarFlores(cantidad)
+      mover
+    JuntarFlores(cantidad)
+  fin
+
+areas
+  area1: AreaP(1,1, 1, 10)
+  areaFiscal: AreaP(2, 1, 2, 1)
+  area2: AreaP(2, 11, 2, 20) 
+  area3: AreaP(3, 21, 3, 30)
+  area4: AreaP(4, 31, 4, 40) 
+  area5: AreaP(5, 41, 5, 50)
+  area6: AreaP(6, 51, 6, 60)
+  
+robots
+  robot tipo2
+  variables
+    ID: numero
+    ID_Ganador: numero
+    cantidadRecibida: numero
+    cantidadGanador: numero
+  comenzar
+    cantidadGanador := -1
+    
+    EnviarMensaje(1, robot1)
+    EnviarMensaje(2, robot2)
+    EnviarMensaje(3, robot3)
+    EnviarMensaje(4, robot4)
+    EnviarMensaje(5, robot5)
+    EnviarMensaje(6, robot6)
+    
+    repetir 6
+      RecibirMensaje(ID, *)
+      si (ID = 1)
+        RecibirMensaje(cantidadRecibida, robot1)
+      sino
+        si(ID = 2)
+          RecibirMensaje(cantidadRecibida, robot2)
+        sino
+          si(ID = 3)
+            RecibirMensaje(cantidadRecibida, robot3)
+          sino
+            si(ID = 4)
+              RecibirMensaje(cantidadRecibida, robot4)
+            sino
+              si(ID = 5)
+                RecibirMensaje(cantidadRecibida, robot5)
+              sino
+                si(ID = 6)
+                  RecibirMensaje(cantidadRecibida, robot6)
+      
+      si(cantidadRecibida > cantidadGanador)
+        cantidadGanador := cantidadRecibida
+      
+    Informar(cantidadGanador)
+  fin
+  
+  robot tipo1
+  variables 
+    cantidad: numero
+    ID: numero
+  comenzar 
+    RecibirMensaje(ID, fiscal)
+    
+    cantidad := 0 
+    LimpiarAvenida(cantidad) 
+    
+    EnviarMensaje(ID, fiscal)
+    EnviarMensaje(cantidad, fiscal) 
+  fin 
+  
+
+variables  
+  robot1: tipo1 
+  robot2: tipo1
+  robot3: tipo1
+  robot4: tipo1
+  robot5: tipo1
+  robot6: tipo1
+  fiscal: tipo2
+
+comenzar 
+  AsignarArea(robot1, area1) 
+  AsignarArea(robot2, area2) 
+  AsignarArea(fiscal, areaFiscal)
+  AsignarArea(robot3, area3)
+  AsignarArea(robot4, area4)
+  AsignarArea(robot5, area5)
+  AsignarArea(robot6, area6)
+  
+  Iniciar(fiscal, 2, 1)
+  
+  Iniciar(robot1, 1,1) 
+  Iniciar(robot2, 2, 11) 
+  Iniciar(robot3, 3, 21)
+  Iniciar(robot4, 4, 31)
+  Iniciar(robot5, 5, 41)
+  Iniciar(robot6, 6, 51)
+fin

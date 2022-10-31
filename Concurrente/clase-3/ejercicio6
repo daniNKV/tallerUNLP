@@ -1,0 +1,115 @@
+programa ejercicio6
+
+procesos
+  proceso JuntarFlores(ES cantidad: numero)
+  comenzar
+    mientras(HayFlorEnLaEsquina)
+      tomarFlor
+      cantidad := cantidad + 1
+  fin
+  
+  proceso JuntarPapeles(ES cantidad: numero)
+  comenzar
+    mientras(HayPapelEnLaEsquina)
+      tomarPapel
+      cantidad := cantidad + 1
+  fin
+  
+  proceso LimpiarLadoFlores(E largo: numero; ES cantFlores: numero)
+  comenzar
+    repetir largo
+      JuntarFlores(cantFlores)
+      mover
+  fin
+  
+  proceso LimpiarLadoPapeles(E largo: numero; ES cantPapeles: numero)
+  comenzar
+    repetir largo
+      JuntarPapeles(cantPapeles)
+      mover
+  fin
+  
+  proceso LimpiarLadoFloresYPapeles(E largo: numero; ES cantPapeles: numero; ES cantFlores: numero)
+  comenzar
+    repetir largo
+      JuntarFlores(cantFlores)
+      JuntarPapeles(cantPapeles)
+      mover
+  fin
+  
+  proceso LimpiarCuadradoFlores(E lado: numero; ES cantJuntadas: numero)
+  comenzar
+    repetir 4
+      LimpiarLadoFlores(lado, cantJuntadas)
+      derecha        
+  fin
+  
+  proceso LimpiarCuadradoPapeles(E lado: numero; ES cantJuntados: numero)
+  comenzar
+    repetir 4
+      LimpiarLadoPapeles(lado, cantJuntados)
+      derecha
+  fin
+  
+  proceso LimpiarCuadradoFloresYPapeles(E lado: numero; ES cantPapeles: numero; ES cantFlores: numero)
+  comenzar
+    repetir 4
+      LimpiarLadoFloresYPapeles(lado, cantPapeles, cantFlores)
+      derecha
+  fin
+areas
+  area1: AreaC(1,1,22,22)
+
+robots
+  robot tipoFlores  
+  variables
+    floresJuntadas: numero
+  comenzar
+    floresJuntadas := 0
+    LimpiarCuadradoFlores(6, floresJuntadas)
+  fin
+  
+  robot tipoPapeles
+  variables
+    papelesJuntados: numero
+  comenzar
+    papelesJuntados := 0
+    LimpiarCuadradoPapeles(7, papelesJuntados)
+  
+  fin
+  
+  robot tipoPapelesYFlores
+  variables
+    floresJuntadas: numero
+    papelesJuntados: numero
+  comenzar
+    floresJuntadas := 0
+    papelesJuntados := 0
+    
+    LimpiarCuadradoFloresYPapeles(10, papelesJuntados, floresJuntadas)
+  fin
+  
+  robot fiscal
+  comenzar
+    derecha
+  fin
+
+variables
+  robot1: tipoFlores
+  robot2: tipoPapelesYFlores
+  robot3: tipoPapeles
+  
+  robotJefe: fiscal
+
+comenzar
+  AsignarArea(robot1, area1)
+  AsignarArea(robot2, area1)
+  AsignarArea(robot3, area1)
+  AsignarArea(robotJefe, area1)
+  
+  Iniciar(robot1, 2,2)
+  Iniciar(robot2, 5,5)
+  Iniciar(robot3, 9,9)
+  Iniciar(robotJefe, 1,1)
+
+fin

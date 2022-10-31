@@ -1,0 +1,117 @@
+programa ejercicio5
+
+procesos
+  proceso LevantarPapel(ES hayPapel: boolean)
+  comenzar
+    si(HayPapelEnLaEsquina)
+      tomarPapel
+      hayPapel := V
+    sino
+      hayPapel := F
+  fin
+  
+  proceso BuscarPapel(ES hayPapel: boolean; E av: numero; E ca: numero)
+  comenzar
+    BloquearEsquina(11,11)
+    Pos(11,11)
+    LevantarPapel(hayPapel)
+    Pos(av, ca)
+    LiberarEsquina(11,11)
+  fin
+  
+  proceso AsignarIDs
+  comenzar
+    EnviarMensaje(1, robot1)
+    EnviarMensaje(2, robot2)
+    EnviarMensaje(3, robot3)
+    EnviarMensaje(4, robot4)
+  fin
+  
+  proceso DefinirGanador(E calle: numero; ES calleGanador: numero; E ID: numero; ES IDGanador: numero)
+  comenzar
+    si(calle > calleGanador)
+      IDGanador := ID
+      calleGanador := calle
+  fin
+  
+areas
+  area1: AreaC(1,1,11,11)
+robots
+  robot tipo1
+  variables
+    ID: numero
+    quedanPapeles: boolean
+    avActual: numero
+    caActual: numero
+    final: boolean
+  comenzar
+    RecibirMensaje(ID, robotJefe)
+    
+    quedanPapeles := V
+    mientras quedanPapeles
+      avActual := PosAv
+      caActual := PosCa
+      
+      BuscarPapel(quedanPapeles, avActual, caActual)
+      
+      si quedanPapeles
+        si PosCa < 11
+          mover
+     
+    EnviarMensaje(ID, robotJefe) 
+    EnviarMensaje(PosCa, robotJefe)
+  fin
+  
+  robot fiscal
+  variables
+    ID: numero
+    IDGanador: numero
+    calle: numero
+    calleGanador: numero
+  comenzar
+    AsignarIDs
+    calleGanador := -1
+    
+    repetir 4
+      RecibirMensaje(ID, *)
+      si(ID = 1)
+        RecibirMensaje(calle, robot1)
+        DefinirGanador(calle, calleGanador, ID, IDGanador)
+      sino
+        si(ID = 2)
+          RecibirMensaje(calle, robot2)
+          DefinirGanador(calle, calleGanador, ID, IDGanador)
+        sino
+          si(ID = 3)
+            RecibirMensaje(calle, robot3)
+            DefinirGanador(calle, calleGanador, ID, IDGanador)
+          sino
+            si(ID = 4)
+              RecibirMensaje(calle, robot4)
+              DefinirGanador(calle, calleGanador, ID, IDGanador)
+    
+    {Jamas se ejecuta aca abajo aunque el robot finalice}
+    Informar(IDGanador)
+  fin
+variables
+  robot1: tipo1
+  robot2: tipo1
+  robot3: tipo1
+  robot4: tipo1
+  
+  robotJefe: fiscal
+comenzar
+  AsignarArea(robot1, area1)
+  AsignarArea(robot2, area1)
+  AsignarArea(robot3, area1)
+  AsignarArea(robot4, area1)
+  AsignarArea(robotJefe, area1)
+  
+  Iniciar(robot1, 4,1)
+  Iniciar(robot2, 6,1)
+  Iniciar(robot3, 8,1)
+  Iniciar(robot4, 10,1)
+  Iniciar(robotJefe, 1,1)
+
+fin
+

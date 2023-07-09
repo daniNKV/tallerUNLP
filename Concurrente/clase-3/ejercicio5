@@ -14,7 +14,9 @@ procesos
   comenzar
     BloquearEsquina(11,11)
     Pos(11,11)
+
     LevantarPapel(hayPapel)
+
     Pos(av, ca)
     LiberarEsquina(11,11)
   fin
@@ -35,7 +37,12 @@ procesos
   fin
   
 areas
-  area1: AreaC(1,1,11,11)
+  areaR1: AreaP(4,1,4,10)
+  areaR2: AreaP(6,1,6,10)
+  areaR3: AreaP(8,1,8,10)
+  areaR4: AreaP(10,1,10,10)
+  area1: AreaC(11,11,11,11)
+  areaJefe: AreaP(1,1,1,1)
 robots
   robot tipo1
   variables
@@ -45,16 +52,17 @@ robots
     caActual: numero
     final: boolean
   comenzar
+    quedanPapeles := V
     RecibirMensaje(ID, robotJefe)
     
     quedanPapeles := V
     mientras quedanPapeles
       avActual := PosAv
       caActual := PosCa
-      
+
       BuscarPapel(quedanPapeles, avActual, caActual)
-      
-      si quedanPapeles
+
+      si quedanPapeles 
         si PosCa < 11
           mover
      
@@ -86,9 +94,8 @@ robots
             RecibirMensaje(calle, robot3)
             DefinirGanador(calle, calleGanador, ID, IDGanador)
           sino
-            si(ID = 4)
-              RecibirMensaje(calle, robot4)
-              DefinirGanador(calle, calleGanador, ID, IDGanador)
+            RecibirMensaje(calle, robot4)
+            DefinirGanador(calle, calleGanador, ID, IDGanador)
     
     {Jamas se ejecuta aca abajo aunque el robot finalice}
     Informar(IDGanador)
@@ -101,11 +108,17 @@ variables
   
   robotJefe: fiscal
 comenzar
+  AsignarArea(robot1, areaR1)
+  AsignarArea(robot2, areaR2)
+  AsignarArea(robot3, areaR3)
+  AsignarArea(robot4, areaR4)
+  
+  AsignarArea(robotJefe, areaJefe)
+  
   AsignarArea(robot1, area1)
   AsignarArea(robot2, area1)
   AsignarArea(robot3, area1)
   AsignarArea(robot4, area1)
-  AsignarArea(robotJefe, area1)
   
   Iniciar(robot1, 4,1)
   Iniciar(robot2, 6,1)
@@ -114,4 +127,5 @@ comenzar
   Iniciar(robotJefe, 1,1)
 
 fin
+
 

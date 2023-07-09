@@ -1,0 +1,91 @@
+programa parcial
+
+
+areas
+  area1: AreaPC(1,2,9,4)
+  area2: AreaPC(1,6,9,8)
+  area3: AreaPC(2,1,4,9)
+  area4: AreaPC(6,1,8,9)
+  
+  areaR1: AreaP(20,1,20,1)
+  areaR2: AreaP(20,2,20,2)
+  areaR3: AreaP(20,4,20,4)
+  areaR4: AreaP(20,5,20,5)
+  
+  areaJefe: AreaP(20,15,20,15)
+  
+robots
+  robot recolectorVertical
+  variables
+    ID: numero
+  comenzar
+    RecibirMensaje(ID, robot5)
+    
+    si ID = 3
+      Pos(2,1)
+    sino
+      si ID = 4
+        Pos(6,1)
+      
+
+  fin
+  
+  robot recolectorHorizontal
+  variables
+    ID: numero
+  comenzar
+    RecibirMensaje(ID, robot5)
+    
+    si ID = 1
+      Pos(1,2)
+    sino
+      si ID = 2
+        Pos(1,6)
+    
+    derecha
+    
+  fin
+  
+  robot jefe
+  comenzar
+    EnviarMensaje(1, robot1)
+    EnviarMensaje(2, robot2)
+    EnviarMensaje(3, robot3)
+    EnviarMensaje(4, robot4)
+
+
+  fin
+variables
+  robot1: recolectorHorizontal
+  robot2: recolectorHorizontal
+  robot3: recolectorVertical
+  robot4: recolectorVertical
+  robot5: jefe
+comenzar
+  AsignarArea(robot1, area1)
+  AsignarArea(robot1, area3)
+  AsignarArea(robot1, area4)
+  
+  AsignarArea(robot2, area2)
+  AsignarArea(robot2, area3)
+  AsignarArea(robot2, area4)
+  
+  AsignarArea(robot3, area3)
+  AsignarArea(robot3, area1)
+  AsignarArea(robot3, area2)
+  
+  AsignarArea(robot4, area4)
+  AsignarArea(robot4, area3)
+  AsignarArea(robot4, area2)
+  AsignarArea(robot1, areaR1)
+  AsignarArea(robot2, areaR2)
+  AsignarArea(robot3, areaR3)
+  AsignarArea(robot4, areaR4)
+  AsignarArea(robot5, areaJefe)
+  
+  Iniciar(robot1, 20,1)
+  Iniciar(robot2, 20,2)
+  Iniciar(robot3, 20,4)
+  Iniciar(robot4, 20,5)
+  Iniciar(robot5, 20,15)
+fin

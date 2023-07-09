@@ -9,7 +9,7 @@ procesos
       hayFlor := F
   fin
   
-  proceso LimpiarEsquina(ES hayFlor: boolean)
+  proceso LimpiarEsquina(ES habiaFlor: boolean)
   variables
     avInicial: numero
     caInicial: numero
@@ -19,42 +19,57 @@ procesos
     
     BloquearEsquina(10,10)
     Pos(10,10)
-    LevantarFlor(hayFlor)
+    LevantarFlor(habiaFlor)
     
-    si(hayFlor)
-      GuardarFlor(avInicial, caInicial)
-    sino
+    si(habiaFlor)
+      BloquearEsquina(11,11)
+      Pos(11,11)
+      LiberarEsquina(10,10)
+      depositarFlor
       Pos(avInicial, caInicial)
+      LiberarEsquina(11,11)
+    sino
+      LiberarEsquina(10,10)
+      
+    Pos(avInicial, caInicial)
     
   fin
   
-  proceso GuardarFlor(E av: numero; E ca: numero)
+  proceso AsignarIDs
   comenzar
-    BloquearEsquina(11,11)
-    Pos(11,11)
-    LiberarEsquina(10,10)
-    depositarFlor
-    Pos(av, ca)
-    LiberarEsquina(11,11)
-    
+    EnviarMensaje(1, robot1)
+    EnviarMensaje(2, robot2)
+    EnviarMensaje(3, robot3)
+    EnviarMensaje(4, robot4)
   fin
   
   
 areas
-  area1: AreaC(1,1, 12,12)
-
+  areaC: AreaC(10,10,11,11)
+  areaR1: AreaP(9,9,9,9)
+  areaR2: AreaP(9,10,9,10)
+  areaR3: AreaP(9,11,9,11)
+  areaR4: AreaP(9,12,9,12)
+  areaJefe: AreaP(1,1,1,1)
+  
 robots
   robot tipo1
   variables
     hayFlores: boolean
     ID: numero
+    cantidadJuntada: numero
+    
   comenzar
-    RecibirMensaje(ID, robotJefe)
+    cantidadJuntada := 0
     hayFlores := V
+    
+    RecibirMensaje(ID, robotJefe)
+    
     mientras(hayFlores)
       LimpiarEsquina(hayFlores)
       
-    EnviarMensaje()
+    EnviarMensaje(ID, robotJefe)
+      
   fin
   
   robot fiscal
@@ -62,8 +77,19 @@ robots
     ID: numero
     IDGanador: numero
   comenzar
-    r
-    derecha
+    AsignarIDs
+    
+    repetir 4
+      RecibirMensaje(ID, *)
+      
+      
+    BloquearEsquina(11,11)
+    Pos(11,11)
+    mientras(HayFlorEnLaEsquina)
+      tomarFlor
+    Pos(1,1)
+    LiberarEsquina(11,11)
+    Informar(ID)
   fin
 variables
   
@@ -74,15 +100,20 @@ variables
   robotJefe: fiscal
 
 comenzar 
-  AsignarArea(robot1, area1)
-  AsignarArea(robot2, area1)
-  AsignarArea(robot3, area1)
-  AsignarArea(robot4, area1)
-  AsignarArea(robotJefe, area1)
-  
+  AsignarArea(robot1, areaR1)
+  AsignarArea(robot2, areaR2)
+  AsignarArea(robot3, areaR3)
+  AsignarArea(robot4, areaR4)
+  AsignarArea(robotJefe, areaJefe)
+  AsignarArea(robot1, areaC)
+  AsignarArea(robot2, areaC)
+  AsignarArea(robot3, areaC)
+  AsignarArea(robot4, areaC)
+  AsignarArea(robotJefe, areaC)
   Iniciar(robot1, 9,9)
   Iniciar(robot2, 9,10)
   Iniciar(robot3, 9,11)
   Iniciar(robot4, 9,12)
   Iniciar(robotJefe, 1,1)
 fin 
+

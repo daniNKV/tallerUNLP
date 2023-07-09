@@ -1,0 +1,55 @@
+programa parcial 
+
+
+areas 
+  area1: AreaC(1,10, 100, 25) 
+  area2: AreaC(1,30,100,45) 
+  
+  AreaR1: AreaP(1,1,1,1)
+  AreaR2: AreaP(2,2,2,2)
+  AreaR3: AreaP(3,3,3,3)
+  AreaR4: AreaP(4,4,4,4)
+  AreaR5: AreaP(5,5,5,5)
+
+robots 
+  robot equipoA 
+  comenzar 
+    derecha 
+  fin
+  
+  robot equipoB 
+  comenzar 
+    derecha 
+  fin
+  
+  robot fiscal 
+  comenzar 
+    derecha 
+  fin   
+
+variables 
+  robot1: equipoA 
+  robot2: equipoA 
+  robot3: equipoB 
+  robot4: equipoB 
+  robot5: fiscal 
+comenzar   
+  AsignarArea(robot1, area1) 
+  AsignarArea(robot2, area1) 
+  AsignarArea(robot3, area2) 
+  AsignarArea(robot4, area2) 
+  AsignarArea(robot5, area1)
+  
+  AsignarArea(robot1, areaR1) 
+  AsignarArea(robot2, areaR2) 
+  AsignarArea(robot3, areaR3) 
+  AsignarArea(robot4, areaR4) 
+  AsignarArea(robot5, areaR5)
+
+  Iniciar(robot1, 1,1) 
+  Iniciar(robot2, 2,2) 
+  Iniciar(robot3, 3,3) 
+  Iniciar(robot4, 4,4) 
+  Iniciar(robot5, 5,5) 
+fin
+
